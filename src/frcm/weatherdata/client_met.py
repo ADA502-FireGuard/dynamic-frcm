@@ -19,8 +19,8 @@ class METClient(WeatherDataClient):
         self.observations_endpoint = 'https://frost.met.no/observations/v0.jsonld'
         self.sources_endpoint = 'https://frost.met.no/sources/v0.jsonld'
 
-        self.MET_CLIENT_ID = config('MET_CLIENT_ID')
-        self.MET_CLIENT_SECRET = config('MET_CLIENT_SECRET')
+        self.MET_CLIENT_ID = config('7f490703-4034-440f-b895-7dd14a8c6458')
+        self.MET_CLIENT_SECRET = config('72bf05eb-1cfe-4f5c-a709-2f6d0b82750f')
 
         self.extractor = extractor
 
