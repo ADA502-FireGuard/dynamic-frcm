@@ -33,8 +33,11 @@ if __name__ == "__main__":
 
     #print(predictions)
 
+
+# Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
 app = FastAPI()
 
+# Root. Returns a simple message to confirm that the user can reach the FireGuard Cloud Service.
 @app.get("/fireguard")
 async def root():
     return {"message": "FireGuard Cloud Service"}
