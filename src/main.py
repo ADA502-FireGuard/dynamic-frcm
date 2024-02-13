@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status
 from frcm.weatherdata.utils import weatherdata_parse
 from frcm.datamodel.model import WeatherDataPoint
 from frcm.frcapi import FireRiskAPI
