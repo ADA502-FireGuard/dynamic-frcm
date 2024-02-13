@@ -51,7 +51,6 @@ class METExtractor(Extractor):
 
                 weatherdatapoints.append(wd_point)
 
-        # TODO: maybe also source as part of the parameters - or extract weather data function instead
         observations = Observations(source=source_id, location=location,data=weatherdatapoints)
 
         return observations
