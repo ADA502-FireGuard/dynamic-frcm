@@ -11,10 +11,8 @@ import unittest
 class TestClient(unittest.TestCase):
 
     def setUp(self):
-
-        self.extractor = METExtractor()
-
-        self.client = METClient(self.extractor)
+        
+        self.client = METClient()
 
         self.location = Location(latitude=60.383, longitude=5.3327)
 

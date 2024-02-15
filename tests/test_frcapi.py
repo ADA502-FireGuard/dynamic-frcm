@@ -16,9 +16,7 @@ class TestFRCAPI(unittest.TestCase):
 
     def setUp(self):
 
-        met_extractor = METExtractor()
-
-        met_client = METClient(extractor=met_extractor)  # TODO: maybe embed extractor into client
+        met_client = METClient() 
 
         self.frc = FireRiskAPI(client=met_client)
 
