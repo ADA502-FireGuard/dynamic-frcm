@@ -47,4 +47,6 @@ class FireRiskAPI:
     def compute_period_delta(self, location: Location, start: datetime, delta: datetime.timedelta) -> FireRiskPrediction:
         pass
 
-
+    def compute_from_raw_data(self) -> FireRiskPrediction:
+        # TODO: Alex
+        pass
