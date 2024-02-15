@@ -77,8 +77,8 @@ async def services ():
 
 
 # Calculates fire risk based on raw data supplied by the user.
-@app.get("/fireguard/services/rawdata")
-async def raw_data(temp: float, humidity: float, wind_speed: float, timestamp: str):
+@app.post("/fireguard/services/rawdata")
+async def raw_data(temp: float, temp_forecast: float, humidity: float, humidity_forecast: float, wind_speed: float, wind_speed_forecast: float, timestamp: str, timestamp_forecast: str, long: float, lat: float):
     
     timestamp = dateutil.parser.parse(timestamp)
     wd_point = WeatherDataPoint(temperature=temp,
