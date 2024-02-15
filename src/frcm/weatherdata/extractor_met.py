@@ -97,9 +97,12 @@ class METExtractor(Extractor):
 
         forecast = self.extract_forecast(met_response)
 
-        now = datetime.datetime.now()  # FIXME: date from each response should be used
+        frost_response_json = json.loads(frost_response)
+        frost_response_created_at = frost_response_json['createdAt']
 
-        weather_data = WeatherData(created=now,
+        created = dateutil.parser.parse(timestr=frost_response_created_at, yearfirst=True)
+
+        weather_data = WeatherData(created=created,
                                    observations=observations,
                                    forecast=forecast)
 
