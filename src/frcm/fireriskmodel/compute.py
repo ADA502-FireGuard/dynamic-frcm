@@ -1,5 +1,6 @@
 import numpy as np
 import datetime
+import warnings
 
 import frcm.datamodel.model as dm
 import frcm.fireriskmodel.parameters as mp
@@ -9,9 +10,13 @@ import frcm.fireriskmodel.preprocess as pp
 
 def compute(wd: dm.WeatherData) -> dm.FireRiskPrediction:
 
-    # Get interpolated values #TODO (NOTE) The max_time_delta represents the largest gap in missing data (seconds). It can be used to provide suited warning/error message.
+    # Get interpolated values
     start_time, time_interpolated_sec, temp_interpolated, humidity_interpolated, wind_interpolated, max_time_delta = pp.preprocess(wd)
     comp_loc = wd.forecast.location
+
+    # Prints a warning to the user when the max time delta is greater than or equal to 24 hours (calculated in seconds).
+    if max_time_delta >= 24 * 60 * 60: 
+        warnings.warn(f"Warning: largest gap in time delta was {max_time_delta}. Results may be inaccurate for larger time gaps.")
 
     # Compute RH_in and TTF
     rh_in, ttf = compute_fr(temp_interpolated, humidity_interpolated)
