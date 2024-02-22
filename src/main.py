@@ -52,7 +52,7 @@ async def services ():
             "gps": {
                 "lon": "float", 
                 "lat": "float",
-                "days": "int",
+                "days (optional, default = 1, minimum = 1)": "int",
                 "return": ""
             },
             "postcode": {
