@@ -1,6 +1,6 @@
 import abc
 
-from frcm.datamodel.model import Observations, Forecast
+from frcm.datamodel.model import Observations, Forecast, Location
 
 
 class Extractor:
@@ -13,4 +13,7 @@ class Extractor:
         pass
 
 
-
+class LocationExtractor:
+    @abc.abstractmethod
+    def extract_coordinates (self, data: str) -> Location:
+        pass

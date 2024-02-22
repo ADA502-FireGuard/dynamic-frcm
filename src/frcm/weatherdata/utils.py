@@ -1,6 +1,6 @@
 import dateutil.parser
 
-from frcm.datamodel.model import WeatherDataPoint
+from frcm.datamodel.model import WeatherDataPoint, Location
 
 
 def weatherdata_parse(datadict) -> list[WeatherDataPoint]:
@@ -23,3 +23,7 @@ def weatherdata_parse(datadict) -> list[WeatherDataPoint]:
 
     return data
 
+
+def postcode_locationdata_parse (datadict) -> Location:
+    # TODO: [FIR-34] Implement RestAPI methods. Requires the use of Kartverket's geocoding api.
+    pass

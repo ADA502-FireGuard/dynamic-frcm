@@ -53,15 +53,20 @@ async def services ():
         "message": "FireGuard services",
         "rawdata": {
             "temp": "float", 
+            "temp_forecast": "float",
             "humidity": "float",
+            "humidity_forecast": "float",
             "wind_speed": "float",
+            "wind_speed_forecast": "float",
             "timestamp": "str",
+            "timestamp_forecast": "str",
             "return": ""
         },
         "area": {
             "gps": {
                 "lon": "float", 
                 "lat": "float",
+                "days": "int",
                 "return": ""
             },
             "postcode": {
@@ -80,33 +85,11 @@ async def services ():
 @app.post("/fireguard/services/rawdata")
 async def raw_data(temp: float, temp_forecast: float, humidity: float, humidity_forecast: float, wind_speed: float, wind_speed_forecast: float, timestamp: str, timestamp_forecast: str, long: float, lat: float):
     
-    """"
-    timestamp = dateutil.parser.parse(timestamp)
-    wd_point = WeatherDataPoint(temperature=temp,
-                                    humidity=humidity,
-                                    wind_speed=wind_speed,
-                                    timestamp=timestamp)
-    data:list = []
-    data.append(wd_point)
-    print(data)
+    frc = FireRiskAPI(client=None) # IMPORTANT: the client is set to "None" as we do not require the use of a met client for the raw data functions. Never use fucntions that require this client with this instance.
 
-    # ALEX: fixme
-    met_client = METClient()
+    predictions = frc.compute_from_raw_data(temp=temp, temp_forecast=temp_forecast, humidity=humidity, humidity_forecast=humidity_forecast, wind_speed=wind_speed, wind_speed_forecast=wind_speed_forecast, timestamp=timestamp, timestamp_forecast=timestamp_forecast, long=long, lat=lat)
 
-    frcapi = FireRiskAPI(client=met_client)
-
-    location_dummy = Location(latitude=0.0, longitude=0.0)
-
-    obs_delta = datetime.timedelta(seconds=1)
-
-    predictions = frcapi.compute_now(location=location_dummy, obs_delta=obs_delta)
-
-    print(predictions)
-    """
-
-
-
-    return "test"
+    return predictions
 
 
 # Default for area selection. Returns expected input variables for the area service functions.
@@ -118,6 +101,7 @@ async def area():
             "gps": {
                 "lon": "float", 
                 "lat": "float",
+                "days (optional)": "int",
                 "return": ""
             },
             "postcode": {
@@ -134,7 +118,7 @@ async def area():
 
 # Calculates fire risk based on GPS coordinates supplied by the user.
 @app.get("/fireguard/services/area/gps")
-async def gps (lon: float, lat: float, days: int):
+async def gps (lon: float, lat: float, days: int = 0):
     met_client = METClient()
     frc = FireRiskAPI(client=met_client)
     location = Location(longitude=lon, latitude=lat)
