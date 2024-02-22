@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response, status
+from fastapi import FastAPI, Response, status
 from frcm.weatherdata.utils import weatherdata_parse
 from frcm.datamodel.model import WeatherDataPoint
 from frcm.frcapi import FireRiskAPI
@@ -11,6 +12,7 @@ import dateutil.parser
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
 if __name__ == "__main__":
 
+    met_client = METClient()
     met_client = METClient()
 
     frc = FireRiskAPI(client=met_client)
@@ -32,8 +34,11 @@ if __name__ == "__main__":
 
 
 # Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
+
+# Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
 app = FastAPI()
 
+# Root. Returns a simple message to confirm that the user can reach the FireGuard Cloud Service.
 # Root. Returns a simple message to confirm that the user can reach the FireGuard Cloud Service.
 @app.get("/fireguard")
 async def root():
