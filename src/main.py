@@ -11,25 +11,7 @@ import dateutil.parser
 
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
 if __name__ == "__main__":
-
-    met_client = METClient()
-
-    frc = FireRiskAPI(client=met_client)
-
-    location = Location(latitude=60.383, longitude=5.3327)  # Bergen
-    # location = Location(latitude=59.4225, longitude=5.2480)  # Haugesund
-
-    # Fails
-    # location = Location(latitude=62.5780, longitude=11.3919)  # Røros
-    # location = Location(latitude=69.6492, longitude=18.9553)  # Tromsø
-
-    # how far into the past to fetch observations
-
-    obs_delta = datetime.timedelta(days=2)
-
-    #predictions = frc.compute_now(location, obs_delta)
-
-    #print(predictions)
+    pass
 
 
 # Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
@@ -91,7 +73,7 @@ async def raw_data(temp: float, temp_forecast: float, humidity: float, humidity_
     
     frc = FireRiskAPI(client=None) # IMPORTANT: the client is set to "None" as we do not require the use of a met client for the raw data functions. Never use fucntions that require this client with this instance.
 
-    predictions = frc.compute_from_raw_data(temp=temp, temp_forecast=temp_forecast, humidity=humidity, humidity_forecast=humidity_forecast, wind_speed=wind_speed, wind_speed_forecast=wind_speed_forecast, timestamp=timestamp, timestamp_forecast=timestamp_forecast, long=long, lat=lat)
+    predictions = frc.compute_from_raw_data(temp=temp, temp_forecast=temp_forecast, humidity=humidity, humidity_forecast=humidity_forecast, wind_speed=wind_speed, wind_speed_forecast=wind_speed_forecast, timestamp=dateutil.parser.parse(timestamp), timestamp_forecast=dateutil.parser.parse(timestamp_forecast), long=long, lat=lat)
 
     return predictions
 
@@ -105,7 +87,7 @@ async def area():
             "gps": {
                 "lon": "float", 
                 "lat": "float",
-                "days (optional)": "int",
+                "days (optional, default = 1, minimum = 1)": "int",
                 "return": ""
             },
             "postcode": {
@@ -122,7 +104,7 @@ async def area():
 
 # Calculates fire risk based on GPS coordinates supplied by the user.
 @app.get("/fireguard/services/area/gps")
-async def gps (lon: float, lat: float, days: int = 0):
+async def gps (lon: float, lat: float, days: int = 1):
     met_client = METClient()
     frc = FireRiskAPI(client=met_client)
     location = Location(longitude=lon, latitude=lat)
