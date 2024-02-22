@@ -13,7 +13,6 @@ import dateutil.parser
 if __name__ == "__main__":
 
     met_client = METClient()
-    met_client = METClient()
 
     frc = FireRiskAPI(client=met_client)
 
