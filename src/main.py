@@ -134,8 +134,13 @@ async def area():
 
 # Calculates fire risk based on GPS coordinates supplied by the user.
 @app.get("/fireguard/services/area/gps")
-async def gps (lon: float, lat: float):
-    pass
+async def gps (lon: float, lat: float, days: int):
+    met_client = METClient()
+    frc = FireRiskAPI(client=met_client)
+    location = Location(longitude=lon, latitude=lat)
+    obs_delta = datetime.timedelta(days=days)
+    predictions = frc.compute_now(location=location, obs_delta=obs_delta)
+    return predictions
 
 
 # Calculates fire risk based on postcode. Uses separate API to determine coordinates for the post code.

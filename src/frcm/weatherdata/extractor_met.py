@@ -35,13 +35,17 @@ class METExtractor(Extractor):
                     # string to datatime object required
                     timestamp = reference_time # assume that observations have the same time stamp
 
-                    # TODO: rewrite to use a switch
-                    if station_observation['elementId'] == 'air_temperature':
-                        temperature = station_observation['value']
-                    elif station_observation['elementId'] == 'relative_humidity':
-                        relative_humidity = station_observation['value']
-                    elif station_observation['elementId'] == 'wind_speed':
-                        wind_speed = station_observation['value']
+                    elementId =  station_observation['elementId']
+
+                    match elementId:
+                        case "air_temperature":
+                            temperature = station_observation['value']
+                        case "relative_humidity":
+                            relative_humidity = station_observation['value']
+                        case "wind_speed":
+                            wind_speed = station_observation['value']
+                        case _:
+                            temperature = 10000     # OK to leave default case empty?
 
                 wd_point = WeatherDataPoint(temperature=temperature,
                                             humidity=relative_humidity,

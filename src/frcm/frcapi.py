@@ -49,4 +49,5 @@ class FireRiskAPI:
 
     def compute_from_raw_data(self) -> FireRiskPrediction:
         # TODO: Alex
+        wd_observation = WeatherData
         pass
