@@ -1,19 +1,19 @@
 import requests
 import datetime
 import json
+#import logging
 
 # see .env.example.py in the root dir.
 from decouple import config
 
 from frcm.weatherdata.client import WeatherDataClient
 from frcm.weatherdata.extractor import Extractor
-from frcm.weatherdata.extractor_met import METExtractor
 from frcm.datamodel.model import Location, Observations, Forecast
 
 
 class METClient(WeatherDataClient):
 
-    def __init__(self):
+    def __init__(self, extractor: Extractor):
 
         self.forecast_endpoint = 'https://api.met.no/weatherapi/locationforecast/2.0/compact.json'
 
@@ -23,68 +23,96 @@ class METClient(WeatherDataClient):
         self.MET_CLIENT_ID = config('MET_CLIENT_ID')
         self.MET_CLIENT_SECRET = config('MET_CLIENT_SECRET')
 
-        self.extractor = METExtractor()
+        self.extractor = extractor
 
     def send_met_request(self, parameters):
 
-        header = {'User-Agent': 'DYNAMIC Firerisk Model'}
+        try:
+            header = {'User-Agent': 'DYNAMIC Firerisk Model'}
 
-        response = requests.get(self.forecast_endpoint,
-                                headers=header,
-                                params=parameters,
-                                auth=(self.MET_CLIENT_ID, self.MET_CLIENT_SECRET))
+            response = requests.get(self.forecast_endpoint,
+                                    headers=header,
+                                    params=parameters,
+                                    auth=(self.MET_CLIENT_ID, self.MET_CLIENT_SECRET))
 
-        return response
+            return response
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     def fetch_forecast_raw(self, location: Location):
 
-        parameters = {'lat': str(location.latitude),
-                      'lon': str(location.longitude)
-                      }
+        try:
+            parameters = {'lat': str(location.latitude),
+                          'lon': str(location.longitude)
+                          }
 
-        response = self.send_met_request(parameters)
+            response = self.send_met_request(parameters)
 
-        return response
+            return response
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     def fetch_forecast(self, location: Location) -> Forecast:
 
-        response = self.fetch_forecast_raw(location)
+        try:
+            response = self.fetch_forecast_raw(location)
 
-        forecast = self.extractor.extract_forecast(response.text)
+            forecast = self.extractor.extract_forecast(response.text)
 
-        return forecast
+            return forecast
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     def send_frost_request(self, endpoint, parameters):
 
-        response = requests.get(endpoint,
+        try:
+            response = requests.get(endpoint,
                                 params=parameters,
                                 auth=(self.MET_CLIENT_ID, self.MET_CLIENT_SECRET))
 
-        return response
+            return response
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     def get_nearest_station_raw(self, location: Location):
-        parameters = {
+
+        try:
+            parameters = {
             'types': 'SensorSystem',
             'elements': 'air_temperature,relative_humidity,wind_speed',
             'geometry':  f'nearest(POINT({location.longitude} {location.latitude}))'}
 
-        response = self.send_frost_request(self.sources_endpoint, parameters)
+            response = self.send_frost_request(self.sources_endpoint, parameters)
 
-        return response
+            return response
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     def get_nearest_station_id(self, location: Location) -> str:
-
-        # TODO: more error handling here
-
-        frost_response = self.get_nearest_station_raw(location)
-
-        frost_response_str = frost_response.text
-
-        station_response = json.loads(frost_response_str)
-
-        station_id = station_response['data'][0]['id']
-
-        return station_id
+        
+        try:
+            # Fetch raw data from the nearest station
+            frost_response = self.get_nearest_station_raw(location)
+            frost_response_str = frost_response.text
+            # Parse the JSON response
+            station_response = json.loads(frost_response_str)
+            # Extract the station ID
+            station_id = station_response['data'][0]['id']
+            return station_id
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     @staticmethod
     def format_date(dt: datetime.datetime):
@@ -103,32 +131,43 @@ class METClient(WeatherDataClient):
         return timeperiod
 
     def fetch_observations_raw(self, source: str, start: datetime.datetime, end: datetime.datetime):
+        
+        try:
+            time_period = METClient.format_period(start, end)
 
-        time_period = METClient.format_period(start, end)
+            print(f'Fetch observation : {time_period}')
 
-        print(f'Fetch observation : {time_period}')
+            parameters = {'sources': source,
+                          'referencetime': time_period,
+                          'elements': 'air_temperature,relative_humidity,wind_speed'
+                         }
 
-        parameters = {'sources': source,
-                      'referencetime': time_period,
-                      'elements': 'air_temperature,relative_humidity,wind_speed'
-                      }
+            response = self.send_frost_request(self.observations_endpoint, parameters)
 
-        response = self.send_frost_request(self.observations_endpoint, parameters)
-
-        return response
+            return response
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
 
     def fetch_observations(self, location: Location, start: datetime.datetime, end: datetime.datetime) -> Observations:
 
-#        print(location)
 
-        station_id = self.get_nearest_station_id(location)
 
-#        print(station_id)
+        try:
+#           print(location)
+            station_id = self.get_nearest_station_id(location)
 
-        response = self.fetch_observations_raw(station_id, start, end)
+#           print(station_id)
 
-#        print(response.text)
+            response = self.fetch_observations_raw(station_id, start, end)
 
-        observations = self.extractor.extract_observations(response.text, location)
+#           print(response.text)
 
-        return observations
+            observations = self.extractor.extract_observations(response.text, location)
+
+            return observations
+        except Exception as other_err:
+            # Logging.exception("Other-errors in get_nearest_station_id")
+            print(f"Unexpected error: {other_err}")
+            return "Error: Unexpected error"
