@@ -116,12 +116,12 @@ async def gps (lon: float, lat: float, days: int = 1):
 # Calculates fire risk based on postcode. Uses separate API to determine coordinates for the post code.
 @app.get("/fireguard/services/area/postcode")
 async def postcode (postal_code: int):
-    # TODO: [FIR-34] Implement RestAPI methods. Requires the use of Kartverket's geocoding api.
+    # TODO: [FIR-57] Implement RestAPI methods. Requires the use of Kartverket's geocoding api.
     pass
 
 
 # Calculates fire risk based on address. Uses separate API to determine coordinates for the address.
 @app.get("/fireguard/services/area/address")
 async def address (adr: str):
-    # TODO: [FIR-34] Implement RestAPI methods. Requires the use of Kartverket's geocoding api.
+    # TODO: [FIR-57] Implement RestAPI methods. Requires the use of Kartverket's geocoding api.
     pass
