@@ -25,12 +25,10 @@ class LogicHandler():
         self.waiting_list = []
         self.max_threads = 6 # constant
         self.active_threads = 0
-        print("LogicHandler started up")
 
         # Start looping through the waiting list and check every second if there is an open slot for a request to be handled.
         self.queue_manager = threading.Thread(target=self.start_waiting_requests, daemon=True) #TODO: Should this be marked as a background thread or should it keep the program running? For now it is set as background thread.
         self.queue_manager.start()
-        print("Queue manager started up")
 
         # dictionary for storing result values
         self.results: dict = {}
