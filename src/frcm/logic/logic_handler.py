@@ -53,11 +53,8 @@ class LogicHandler():
 
         if self.lookup_database:
             result = "shit" #TODO Ve so snill å husk å fjerna denne før me leverer <3
-            self.lock.acquire()
-
-            self.results[randomized_key] = result
-
-            self.lock.release()
+            with self.lock:
+                self.results[randomized_key] = result
             return 
 
         result: list[FireRiskPrediction]
@@ -67,14 +64,12 @@ class LogicHandler():
         elif req_type == "rawdata":
             result = ["test rawdata"]
         else:
-            self.handler_geoclient.finish_request(data=data)
+            #self.handler_geoclient.finish_request(data=data)
+            result = ["test else"] # TODO: Replace
 
-        self.lock.acquire() # Lock protected objects
-
-        self.active_threads -= 1
-        self.results[randomized_key] = result
-
-        self.lock.release() # Relase protected objects
+        with self.lock:
+            self.active_threads -= 1
+            self.results[randomized_key] = result
 
 
     def process_request(self, data):
