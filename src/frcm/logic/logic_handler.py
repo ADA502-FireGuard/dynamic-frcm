@@ -28,7 +28,7 @@ class LogicHandler():
         print("LogicHandler started up")
 
         # Start looping through the waiting list and check every second if there is an open slot for a request to be handled.
-        self.queue_manager = threading.Thread(target=self.start_waiting_requests)
+        self.queue_manager = threading.Thread(target=self.start_waiting_requests, daemon=True) #TODO: Should this be marked as a background thread or should it keep the program running? For now it is set as background thread.
         self.queue_manager.start()
         print("Queue manager started up")
 
@@ -41,7 +41,7 @@ class LogicHandler():
         return False
 
 
-    def make_request (self, data: list) -> list[FireRiskPrediction]:
+    def finish_request (self, data: list) -> list[FireRiskPrediction]:
         """
             Determines first if data exists in Database already.
             If not, determines what type of request is being amde, e.g. gps coordinates, rawdata, address, etc.
@@ -69,7 +69,7 @@ class LogicHandler():
         elif req_type == "rawdata":
             result = ["test rawdata"]
         else:
-            self.handler_geoclient.make_request(data=data)
+            self.handler_geoclient.finish_request(data=data)
 
         self.lock.acquire() # Lock protected objects
 
@@ -84,40 +84,35 @@ class LogicHandler():
             accepts
         """
         print(f"Request {data} with key processed by thread {threading.current_thread().name}")
-        self.make_request(data=data)
+        self.finish_request(data=data)
 
 
-    def handle_request(self, req_type, data):
+    def handle_request(self, req_type, data) -> int:
+        print("Start of handle request")
         with self.lock:
             if self.active_threads < self.max_threads:
-                
-                self.lock.acquire() # Lock protected objects
 
                 self.active_threads += 1
 
                 # Create randomized key. Checks if randomized key exists already in the dictionary. In that case keep getting new randomized key and checking for duplicates and stops immediately when there is no longer a duplicate key in the dictionary.
                 randomized_key = random.randint(0, 1000000000000)
-                """while randomized_key in list(self.results.keys()):
+                while randomized_key in list(self.results.keys()):
                     print(randomized_key)
-                    randomized_key = random.randint(0, 1000000000000)"""
+                    randomized_key = random.randint(0, 1000000000000)
                 self.results[randomized_key] = "placeholder"
                 print(randomized_key)
 
-                self.lock.release() # Relase protected objects
-
                 # Start a new thread
-                thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
-                thread.start()
+                #thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
+                #thread.start()
                 return randomized_key
                 
             else:
-                
-                self.lock.acquire() # Lock protected objects
 
                 randomized_key = random.randint(0, 1000000000000)
-                """while randomized_key in list(self.results.keys()):
+                while randomized_key in list(self.results.keys()):
                     print(randomized_key)
-                    randomized_key = random.randint(0, 1000000000000)"""
+                    randomized_key = random.randint(0, 1000000000000)
                 self.results[randomized_key] = "placeholder"
                 print(randomized_key)
 
@@ -125,7 +120,6 @@ class LogicHandler():
                 self.waiting_list.append([randomized_key, req_type, data])
                 print(f"Request type:{req_type} data:{data} added to waiting list with key {randomized_key} XD")
 
-                self.lock.release() # Relase protected objects
                 return randomized_key
 
 
@@ -136,10 +130,8 @@ class LogicHandler():
             Checks if there are requests on the waiting list. If so, starts a thread with the request. If not, breaks out of the while loop.
         """
         while True:
-            #time.sleep(1)
+            time.sleep(1)
             with self.lock:
-
-                self.lock.acquire() # Lock protected objects
 
                 if self.waiting_list and self.active_threads < (self.max_threads + 1):
                     request = self.waiting_list.pop(0)
@@ -151,7 +143,6 @@ class LogicHandler():
                 else:
                     continue
 
-                self.lock.release() # Relase protected objects
 
 
 class LogicHandlerGEOClient (LogicHandler):
@@ -161,7 +152,7 @@ class LogicHandlerGEOClient (LogicHandler):
     def __init__(self) -> None:
         self.client = GeoCodingClient()
 
-    def make_request(self, data: list):
+    def finish_request(self, data: list):
         pass
 
 
