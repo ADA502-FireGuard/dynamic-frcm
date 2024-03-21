@@ -18,7 +18,7 @@ logic_handler: LogicHandler = LogicHandler()
 if __name__ == "__main__":
     
     # Init LogicHandler object.
-    logic_handler = LogicHandler()
+    
 
     """
         user -> restapi (thread) -> waiting_list LogicHandler 
@@ -123,9 +123,11 @@ async def gps (lon: float, lat: float, days: int = 1):
     obs_delta = datetime.timedelta(days=days)
     predictions = frc.compute_now(location=location, obs_delta=obs_delta)"""
 
-    print("HALLO")
-
+    logic_handler.lock.acquire()
+    
     key = logic_handler.handle_request("gps", [lon, lat])
+
+    logic_handler.lock.release()
 
     while True:
         time.sleep(1)
@@ -134,10 +136,17 @@ async def gps (lon: float, lat: float, days: int = 1):
 
         if type(logic_handler.results[key]) == list:
             break
-
+    
         logic_handler.lock.release()
 
-    return logic_handler.results[key]
+    logic_handler.lock.acquire()
+
+    result = logic_handler.results[key]
+    logic_handler.results.pop(key)
+
+    logic_handler.lock.release()
+
+    return result
 
 
 # Calculates fire risk based on postcode. Uses separate API to determine coordinates for the post code.
