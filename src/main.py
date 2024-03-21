@@ -5,21 +5,33 @@ from frcm.datamodel.model import WeatherDataPoint
 from frcm.frcapi import FireRiskAPI
 from frcm.weatherdata.client_met import METClient
 from frcm.weatherdata.extractor_met import METExtractor
+from frcm.weatherdata.positiondata.client_geocoding import GeoCodingClient
+from frcm.weatherdata.positiondata.extractor_geocoding import GeoCodingExtractor
+from frcm.logic.logic_handler import LogicHandler
 from frcm.datamodel.model import Location
 import datetime
 import dateutil.parser
+import time
 
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
+logic_handler: LogicHandler = LogicHandler()
 if __name__ == "__main__":
-    pass
+    
+    # Init LogicHandler object.
+    logic_handler = LogicHandler()
+
+    """
+        user -> restapi (thread) -> waiting_list LogicHandler 
+        -> Database
+        -> GPS? ->  METClient
+        -> Addresse / anna ->  GeoClient -> METClient
+    """
 
 
-# Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
 
 # Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
 app = FastAPI()
 
-# Root. Returns a simple message to confirm that the user can reach the FireGuard Cloud Service.
 # Root. Returns a simple message to confirm that the user can reach the FireGuard Cloud Service.
 @app.get("/fireguard")
 async def root():
@@ -105,12 +117,27 @@ async def area():
 # Calculates fire risk based on GPS coordinates supplied by the user.
 @app.get("/fireguard/services/area/gps")
 async def gps (lon: float, lat: float, days: int = 1):
-    met_client = METClient()
+    """met_client = METClient()
     frc = FireRiskAPI(client=met_client)
     location = Location(longitude=lon, latitude=lat)
     obs_delta = datetime.timedelta(days=days)
-    predictions = frc.compute_now(location=location, obs_delta=obs_delta)
-    return predictions
+    predictions = frc.compute_now(location=location, obs_delta=obs_delta)"""
+
+    print("HALLO")
+
+    key = logic_handler.handle_request("gps", [lon, lat])
+
+    while True:
+        time.sleep(1)
+
+        logic_handler.lock.acquire()
+
+        if type(logic_handler.results[key]) == list:
+            break
+
+        logic_handler.lock.release()
+
+    return logic_handler.results[key]
 
 
 # Calculates fire risk based on postcode. Uses separate API to determine coordinates for the post code.
