@@ -14,11 +14,10 @@ import dateutil.parser
 import time
 
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
-logic_handler: LogicHandler = LogicHandler()
 if __name__ == "__main__":
     
     # Init LogicHandler object.
-    
+    logic_handler: LogicHandler = LogicHandler()
 
     """
         user -> restapi (thread) -> waiting_list LogicHandler 
@@ -26,7 +25,6 @@ if __name__ == "__main__":
         -> GPS? ->  METClient
         -> Addresse / anna ->  GeoClient -> METClient
     """
-
 
 
 # Start of RestAPI implementation. Below is defined all the paths that are used to access the FireGuard Cloud Service.
@@ -123,28 +121,21 @@ async def gps (lon: float, lat: float, days: int = 1):
     obs_delta = datetime.timedelta(days=days)
     predictions = frc.compute_now(location=location, obs_delta=obs_delta)"""
 
-    logic_handler.lock.acquire()
-    
-    key = logic_handler.handle_request("gps", [lon, lat])
+    # Make a key and queue a request.
+    with logic_handler.lock:
+        key = logic_handler.handle_request("gps", [lon, lat])
 
-    logic_handler.lock.release()
+    result: list
 
+    # Have the thread continuously check if the temporary storage has updated to contain a list of FireRiskPredictions. Once this is the case, return the results stored.
+    #TODO: Change the result type to be a JSON formatted result for the end user.
     while True:
         time.sleep(1)
-
-        logic_handler.lock.acquire()
-
-        if type(logic_handler.results[key]) == list:
-            break
-    
-        logic_handler.lock.release()
-
-    logic_handler.lock.acquire()
-
-    result = logic_handler.results[key]
-    logic_handler.results.pop(key)
-
-    logic_handler.lock.release()
+        with logic_handler.lock:
+            if type(logic_handler.results[key]) == list:
+                result = logic_handler.results[key]
+                logic_handler.results.pop(key)
+                break
 
     return result
 
