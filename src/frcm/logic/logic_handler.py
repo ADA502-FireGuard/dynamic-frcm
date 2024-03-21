@@ -103,8 +103,8 @@ class LogicHandler():
                 print(randomized_key)
 
                 # Start a new thread
-                #thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
-                #thread.start()
+                thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
+                thread.start()
                 return randomized_key
                 
             else:
