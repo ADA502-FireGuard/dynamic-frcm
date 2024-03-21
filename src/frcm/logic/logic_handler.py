@@ -88,10 +88,10 @@ class LogicHandler():
                 self.active_threads += 1
 
                 # Create randomized key. Checks if randomized key exists already in the dictionary. In that case keep getting new randomized key and checking for duplicates and stops immediately when there is no longer a duplicate key in the dictionary.
-                randomized_key = random.randint(0, 1000000000000)
+                randomized_key = random.randint(0, 10000000)
                 while randomized_key in list(self.results.keys()):
                     print(randomized_key)
-                    randomized_key = random.randint(0, 1000000000000)
+                    randomized_key = random.randint(0, 10000000)
                 self.results[randomized_key] = "placeholder"
                 print(randomized_key)
 
@@ -102,10 +102,10 @@ class LogicHandler():
                 
             else:
 
-                randomized_key = random.randint(0, 1000000000000)
+                randomized_key = random.randint(0, 10000000)
                 while randomized_key in list(self.results.keys()):
                     print(randomized_key)
-                    randomized_key = random.randint(0, 1000000000000)
+                    randomized_key = random.randint(0, 10000000)
                 self.results[randomized_key] = "placeholder"
                 print(randomized_key)
 
