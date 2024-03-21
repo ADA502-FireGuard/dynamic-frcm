@@ -18,7 +18,7 @@ class TestLogicHandler (unittest.TestCase):
 
         #expected_firerisk_key1 = [FireRiskPrediction()]
 
-        self.assertEqual(self.logic_handler.results[key1], )
+        #self.assertEqual(self.logic_handler.results[key1], )
 
         #TODO: Finish tests after API functions are properly implemented into handle_request
 
