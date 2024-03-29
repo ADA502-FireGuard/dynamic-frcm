@@ -8,7 +8,6 @@ from frcm.weatherdata.client_met import WeatherDataClient
 
 class LogicHandler():
 
-
     """
     THREAD PROTECTED VARIABLES
 
@@ -39,7 +38,7 @@ class LogicHandler():
         return False
 
 
-    def finish_request (self, data: list) -> list[FireRiskPrediction]:
+    def finish_request (self, data: list):
         """
             Determines first if data exists in Database already.
             If not, determines what type of request is being amde, e.g. gps coordinates, rawdata, address, etc.
