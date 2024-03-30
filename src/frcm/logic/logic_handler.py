@@ -80,39 +80,27 @@ class LogicHandler():
 
 
     def handle_request(self, req_type, data) -> int:
-        print("Start of handle request")
+        randomized_key: int
         with self.lock:
             if self.active_threads < self.max_threads:
-
                 self.active_threads += 1
-
-                # Create randomized key. Checks if randomized key exists already in the dictionary. In that case keep getting new randomized key and checking for duplicates and stops immediately when there is no longer a duplicate key in the dictionary.
-                randomized_key = random.randint(0, 10000000)
-                while randomized_key in list(self.results.keys()):
-                    print(randomized_key)
-                    randomized_key = random.randint(0, 10000000)
-                self.results[randomized_key] = "placeholder"
-                print(randomized_key)
-
                 # Start a new thread
                 thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
                 thread.start()
                 return randomized_key
                 
             else:
-
-                randomized_key = random.randint(0, 10000000)
-                while randomized_key in list(self.results.keys()):
-                    print(randomized_key)
-                    randomized_key = random.randint(0, 10000000)
-                self.results[randomized_key] = "placeholder"
-                print(randomized_key)
-
                 # Add to waiting list
                 self.waiting_list.append([randomized_key, req_type, data])
                 print(f"Request type:{req_type} data:{data} added to waiting list with key {randomized_key} XD")
 
-                return randomized_key
+            # Create randomized key. Checks if randomized key exists already in the dictionary. In that case keep getting new randomized key and checking for duplicates and stops immediately when there is no longer a duplicate key in the dictionary.
+            randomized_key = random.randint(0, 10000000)
+            while randomized_key in list(self.results.keys()):
+                randomized_key = random.randint(0, 10000000)
+            self.results[randomized_key] = "placeholder"
+            print(randomized_key)
+        return randomized_key
 
 
     def start_waiting_requests(self):
