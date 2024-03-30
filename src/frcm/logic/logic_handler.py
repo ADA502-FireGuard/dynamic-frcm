@@ -73,33 +73,38 @@ class LogicHandler():
 
     def process_request(self, data):
         """
-            accepts
+            Accepts the input data for a request and processes it. Prints out a message indicating that it is being handled.
         """
-        print(f"Request {data} with key processed by thread {threading.current_thread().name}")
+        print(f"Request with key: {data[0]}, request type: {data[1]} is being processed by thread {threading.current_thread().name}")
         self.finish_request(data=data)
 
 
     def handle_request(self, req_type, data) -> int:
+        """
+            Takes in information on request type and data associated with it, determines how many requests are currently being handled, and either starts a new thread to handle the request or adds the request to the waiting list.
+            Creates a randomized key used to access the results once the request has been handled.
+            Returns the randomized key, and temporarily sets the results dictionary's value corresponding to the key to be "placeholder" to simplify the requesting thread's checking if the request has been handled and finished by determining the type of the result stored.
+        """
         randomized_key: int
-        with self.lock:
-            if self.active_threads < self.max_threads:
-                self.active_threads += 1
-                # Start a new thread
-                thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
-                thread.start()
-                return randomized_key
-                
-            else:
-                # Add to waiting list
-                self.waiting_list.append([randomized_key, req_type, data])
-                print(f"Request type:{req_type} data:{data} added to waiting list with key {randomized_key} XD")
 
+        with self.lock:
             # Create randomized key. Checks if randomized key exists already in the dictionary. In that case keep getting new randomized key and checking for duplicates and stops immediately when there is no longer a duplicate key in the dictionary.
             randomized_key = random.randint(0, 10000000)
             while randomized_key in list(self.results.keys()):
                 randomized_key = random.randint(0, 10000000)
             self.results[randomized_key] = "placeholder"
-            print(randomized_key)
+
+            if self.active_threads < self.max_threads:
+                self.active_threads += 1
+                # Start a new thread
+                thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
+                thread.start()
+                
+            else:
+                # Add to waiting list
+                self.waiting_list.append([randomized_key, req_type, data])
+                print(f"Request type: {req_type} data: {data} added to waiting list with key: {randomized_key}")
+
         return randomized_key
 
 
@@ -111,6 +116,7 @@ class LogicHandler():
         """
         while True:
             time.sleep(1)
+            print("Thread Queue Handler loop")
             with self.lock:
 
                 if self.waiting_list and self.active_threads < (self.max_threads + 1):
