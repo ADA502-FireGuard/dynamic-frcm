@@ -47,9 +47,9 @@ class FireRiskAPI:
     def compute_period_delta(self, location: Location, start: datetime, delta: datetime.timedelta) -> FireRiskPrediction:
         pass
 
-    def compute_from_raw_data(self, temp: float, temp_forecast: float, humidity: float, humidity_forecast: float, wind_speed: float, wind_speed_forecast: float, timestamp: datetime, timestamp_forecast: datetime, long: float, lat: float) -> FireRiskPrediction:
+    def compute_from_raw_data(self, temp: float, temp_forecast: float, humidity: float, humidity_forecast: float, wind_speed: float, wind_speed_forecast: float, timestamp: datetime, timestamp_forecast: datetime, lon: float, lat: float) -> FireRiskPrediction:
         # Define location
-        location = Location(latitude=lat, longitude=long)
+        location = Location(latitude=lat, longitude=lon)
 
         # Define observations
         wdp_observation = WeatherDataPoint(temperature=temp, humidity=humidity, wind_speed=wind_speed, timestamp=timestamp)
