@@ -15,7 +15,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/fireguard/services/rawdata?temp=15&temp_forecast=11&humidity=80&humidity_forecast=58&wind_speed=2.1&wind_speed_forecast=3.5&timestamp=2022-04-01T00:00:00Z&timestamp_forecast=2022-04-02T01:00:01Z&long=5.3&lat=60.0",
+							"raw": "http://127.0.0.1:8000/fireguard/services/rawdata?temp=15&temp_forecast=11&humidity=80&humidity_forecast=58&wind_speed=2.1&wind_speed_forecast=3.5&timestamp=2022-04-01T00:00:00Z&timestamp_forecast=2022-04-02T01:00:01Z&lon=5.3&lat=60.0",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -63,7 +63,7 @@
 									"value": "2022-04-02T01:00:01Z"
 								},
 								{
-									"key": "long",
+									"key": "lon",
 									"value": "5.3"
 								},
 								{
@@ -187,6 +187,86 @@
 								{
 									"key": "lat",
 									"value": "60.383"
+								},
+								{
+									"key": "days",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fireguard/services/area/postcode",
+			"item": [
+				{
+					"name": "fireguard/services/area/postcode/5700",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/fireguard/services/area/postcode?postal_code=5700&days=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"fireguard",
+								"services",
+								"area",
+								"postcode"
+							],
+							"query": [
+								{
+									"key": "postal_code",
+									"value": "5700"
+								},
+								{
+									"key": "days",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "fireguard/services/area/gps/address",
+			"item": [
+				{
+					"name": "/fireguard/services/area/address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/fireguard/services/area/address?adr=Uttrågata 9&days=2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"fireguard",
+								"services",
+								"area",
+								"address"
+							],
+							"query": [
+								{
+									"key": "adr",
+									"value": "Uttrågata 9"
 								},
 								{
 									"key": "days",
