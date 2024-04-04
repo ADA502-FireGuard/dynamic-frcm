@@ -12,12 +12,13 @@ from frcm.datamodel.model import Location
 import datetime
 import dateutil.parser
 import time
+import threading
 
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
+logic_handler: LogicHandler = LogicHandler()
 if __name__ == "__main__":
     
     # Init LogicHandler object.
-    logic_handler: LogicHandler = LogicHandler()
 
     """
         user -> restapi (thread) -> waiting_list LogicHandler 
@@ -121,9 +122,14 @@ async def gps (lon: float, lat: float, days: int = 1):
     obs_delta = datetime.timedelta(days=days)
     predictions = frc.compute_now(location=location, obs_delta=obs_delta)"""
 
+    print("Accepted request for GPS")
+
     # Make a key and queue a request.
-    with logic_handler.lock:
+    with threading.Lock():
         key = logic_handler.handle_request("gps", [lon, lat])
+
+        print("Sent request for GPS")
+        print(logic_handler.results[key])
 
     result: list
 
@@ -131,7 +137,8 @@ async def gps (lon: float, lat: float, days: int = 1):
     #TODO: Change the result type to be a JSON formatted result for the end user.
     while True:
         time.sleep(1)
-        with logic_handler.lock:
+        with threading.Lock():
+            print(f"Waiting for result . . . {logic_handler.results[key]}")
             if type(logic_handler.results[key]) == list:
                 result = logic_handler.results[key]
                 logic_handler.results.pop(key)
