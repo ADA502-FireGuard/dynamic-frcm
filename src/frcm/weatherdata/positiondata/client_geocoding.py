@@ -144,14 +144,3 @@ class GeoCodingClient(LocationDataClient):
         coordinates = self.extractor.extract_coordinates(geocode_response_str=geocode_response.text)
 
         return coordinates
-
-"""" 
-# TODO: Remove temporary tests   
-# Easy tests for Voss
-test_client = GeoCodingClient()
-print(f"{test_client.fetch_coordinates_from_address('Uttrågata 9')}")
-print(f"{test_client.fetch_coordinates_from_postcode(5700)}")
-print(f"{test_client.fetch_coordinates_from_postarea('Voss')}")
-print(f"{test_client.fetch_coordinates_from_county('Voss')}")
-print(f"{test_client.fetch_coordinates_from_county_number(4621)}")
-"""

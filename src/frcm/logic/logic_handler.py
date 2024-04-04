@@ -55,10 +55,10 @@ class LogicHandler():
         """
         print(f"--> Request-key: {data[0]}, type: '{data[1]}' is being processed by {threading.current_thread().name}")
 
+        # Extract request data
         randomized_key = data[0]
         req_type = data[1]
         request_data: dict = data[2]
-        print(request_data)
 
         """ This will come later in the code, however it requires finishing implementing the database handler.
         with self.lock:
