@@ -20,8 +20,6 @@ class LogicHandler():
     """
 
     def __init__(self) -> None:
-        #self.handler_metclient = LogicHandlerMETClient()
-        #self.handler_geoclient = LogicHandlerGEOClient()
 
         self.lock = threading.Lock()
         self.waiting_list = []
@@ -79,7 +77,7 @@ class LogicHandler():
         frc = FireRiskAPI(client=client_met)
 
         """
-            Determine what kind of request this is, and from there process the request based upon the expected input data for such a case.
+            Determine what kind of request this is, and from there process the request based upon the expected input data for such a request.
         """
         # Single gps point request
         if req_type == "gps":
