@@ -8,6 +8,7 @@ from frcm.datamodel.model import FireRiskPrediction, Location
 from frcm.weatherdata.positiondata.client_geocoding import GeoCodingClient
 from frcm.weatherdata.client_met import METClient
 from frcm.logic.utils import LogicHandlerUtils
+from frcm.logic.database_handler import DatabaseHandler
 
 class LogicHandler():
 
@@ -26,17 +27,15 @@ class LogicHandler():
         self.max_threads = 3 # constant
         self.active_threads = 0
 
+        # Database handler object
+        self.db_handler = DatabaseHandler()
+
         # Start looping through the waiting list and check every second if there is an open slot for a request to be handled.
-        self.queue_manager = threading.Thread(target=self.queue_handler, daemon=True) #TODO: Should this be marked as a background thread or should it keep the program running? For now it is set as background thread.
+        self.queue_manager = threading.Thread(target=self.queue_handler, name="Queue-Manager-Thread", daemon=True) #TODO: Should this be marked as a background thread or should it keep the program running? For now it is set as background thread.
         self.queue_manager.start()
 
         # dictionary for storing result values
         self.results: dict = {}
-
-
-    def lookup_database (self):
-        # TODO 
-        return False
 
 
     def finish_request (self, data: list):
@@ -193,7 +192,7 @@ class LogicHandler():
             if self.active_threads < self.max_threads:
                 self.active_threads += 1
                 # Start a new thread
-                thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],))
+                thread = threading.Thread(target=self.process_request, args=([randomized_key, req_type, data],), name=f"Thread-key-{randomized_key}")
                 thread.start()
                 
             else:
@@ -217,9 +216,25 @@ class LogicHandler():
                 if self.waiting_list and self.active_threads < (self.max_threads + 1):
                     request = self.waiting_list.pop(0)
                     self.active_threads += 1
-                    thread = threading.Thread(target=self.process_request, args=(request,))
+                    thread = threading.Thread(target=self.process_request, args=(request,), name=f"Thread-key-{request[0]}")
                     thread.start()
                     
                     print(f"--> Request {request} started from waiting list!")
                 else:
                     continue
+    
+
+    def lookup_database (self) -> bool:
+        """
+            Looks through the database if the data requested already exists, returns either True or False
+        """
+        # TODO 
+        return False
+    
+
+    def withdraw_database_data (self) -> list[FireRiskPrediction]:
+        """
+            Retrieves data from the database
+        """
+        pass
+
