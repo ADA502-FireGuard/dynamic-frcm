@@ -15,6 +15,7 @@ class LogicHandler():
     """
     THREAD PROTECTED VARIABLES
 
+    db_handler
     active_threads
     waiting_list
     
