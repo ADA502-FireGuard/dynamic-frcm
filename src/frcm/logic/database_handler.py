@@ -45,7 +45,11 @@ class DatabaseHandler:
             Also handles checking subscriptions and starts renewal of data- and sending of data processes.
         """
         #TODO Database handler
-        pass
+        while True:
+            time.sleep(60)
+
+            with self.lock:
+                pass
 
 
     def update_database_item (self):
