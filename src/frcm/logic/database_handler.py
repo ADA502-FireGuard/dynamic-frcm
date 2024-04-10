@@ -2,7 +2,6 @@ import threading
 import time
 import datetime
 
-from frcm.logic.logic_handler import LogicHandler
 from frcm.datamodel.model import FireRiskPrediction, Location
 
 class DatabaseHandler:
