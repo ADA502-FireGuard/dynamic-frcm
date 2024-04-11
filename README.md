@@ -39,21 +39,23 @@ docker pull xxx
 ```
 image 
 
-### <span style="color:tomato">Step 4: Check Docker images on your local machine</span>
+#### <span style="color:tomato">Step 3.1: Check Docker images on your local machine (optional)</span>
 The project's Docker image should now be on your computer. 
 
 To confirm this, you can write the following command in your terminal window: 
 ```
 docker images 
 ```
+You should see something like this: 
+
 ![Cmd Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/17d6a082-31cb-43e8-91dd-940c71ddd789)
 
-### <span style="color:tomato">Step 5: Check the Docker Desktop Application</span>
+#### <span style="color:tomato">Step 3.2: Check the Docker Desktop Application (optional)</span>
 In the Docker Desktop application, you should now be able see the project image in the "Images" tab: 
 
 ![Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/e2077c31-f916-4ba5-beea-d662d7caffb5)
 
-### <span style="color:tomato">Step 6: Run the project image</span>
+### <span style="color:tomato">Step 4: Run the project image</span>
 In the "Images" tab, select the newly added image. Press the run button for the project: 
 
 ![Run Image](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/42ac821c-58ea-4963-83cc-65df7e537a2c)
@@ -62,7 +64,7 @@ Enter "8000" as the host port, and then press run:
 
 <img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/6ebceb70-95f3-476a-a43c-e7931ae2dfef" width="325">
 
-### <span style="color:tomato">Step 7: Profit!!! 🎉🥳🎂</span>
+### <span style="color:tomato">Step 5: Profit!!! 🎉🥳🎂</span>
 Congratulations, you are now running the application! 
 
 You should now be able to see the following information about the running container in your Docker Desktop application, in the "Containers" tab: 
