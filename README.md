@@ -42,6 +42,7 @@ docker pull princesig/ada502_group_5:latest
 #### <span style="color:tomato">Step 3.1 (optional): Check Docker images on your local machine</span>
 The project's Docker image should now be on your computer. 
 
+
 To confirm this, you can write the following command in your terminal window: 
 ```
 docker images 
