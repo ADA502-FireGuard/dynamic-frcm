@@ -32,7 +32,7 @@ class METExtractor(Extractor):
 
                 for station_observation in station_observations:
 
-                    # string to datatime object required
+                    # string to datetime object required
                     timestamp = reference_time # assume that observations have the same time stamp
 
                     elementId =  station_observation['elementId']
