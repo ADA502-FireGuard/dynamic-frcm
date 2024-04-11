@@ -14,9 +14,9 @@ Recommended:
 
 ## <span style="color:tomato"> Installation </span>
 
-To install the program for this project, we need to download/pull the docker image from DockerHub.
+To install the program for this project, you need to download/pull the docker image from DockerHub.
 
-After downloading the Docker image, we can set up and run the program/application on localhost.
+After downloading the Docker image, you can set up and run the program locally (on localhost).
 
 ### <span style="color:tomato">Step 1: Open Docker Desktop</span>
 
@@ -28,10 +28,10 @@ First, open [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 Launch your terminal of choice. 
 
-You can type "cmd" in a Windows search bar to find the embedded command-line interface on Windows devices (alternatively press Windows key + R, type "cmd", and hit enter.) 
+Tip: You can type "cmd" in a Windows search bar to find the embedded command-line interface on Windows devices, or alternatively press Windows key + R, type "cmd", and hit enter. 
 
 ### <span style="color:tomato">Step 3: Pull the project from Docker</span>
-Next, we need to download the project from Docker. 
+Next, you need to download the project from Docker. 
 
 Write the following command in your terminal window: 
 ```
@@ -69,6 +69,6 @@ You should now be able to see the following information about the running contai
 
 <img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/0b4b1d72-09c7-4ce4-b5f5-bfe0677a09e3" width="650">
 
-Continue to the "User guide" below for pointers on how to use the program to perform fire risk calculations. 
+Continue to the "User guide" below for pointers on how you can use the program to perform fire risk calculations. 
 
 ## <span style="color:tomato"> User guide </span> 
