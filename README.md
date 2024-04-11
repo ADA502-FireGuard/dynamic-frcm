@@ -69,7 +69,7 @@ Congratulations, you are now running the application!
 
 You should see the following in your Docker application:
 
-![Docker Logs](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/0b4b1d72-09c7-4ce4-b5f5-bfe0677a09e3)
+<img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/0b4b1d72-09c7-4ce4-b5f5-bfe0677a09e3" width="650">
 
 Continue to the "User guide" below for pointers on how to use the program.
 
