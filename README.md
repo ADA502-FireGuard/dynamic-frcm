@@ -39,7 +39,7 @@ docker pull xxx
 ```
 image 
 
-#### <span style="color:tomato">Step 3.1: Check Docker images on your local machine (optional)</span>
+#### <span style="color:tomato">Step 3.1 (optional): Check Docker images on your local machine</span>
 The project's Docker image should now be on your computer. 
 
 To confirm this, you can write the following command in your terminal window: 
@@ -50,7 +50,7 @@ You should see something like this:
 
 ![Cmd Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/17d6a082-31cb-43e8-91dd-940c71ddd789)
 
-#### <span style="color:tomato">Step 3.2: Check the Docker Desktop Application (optional)</span>
+#### <span style="color:tomato">Step 3.2 (optional): Check the Docker Desktop Application</span>
 In the Docker Desktop application, you should now be able see the project image in the "Images" tab: 
 
 ![Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/e2077c31-f916-4ba5-beea-d662d7caffb5)
