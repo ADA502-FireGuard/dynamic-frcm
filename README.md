@@ -35,9 +35,9 @@ Next, you need to download the project from Docker.
 
 Write the following command in your terminal window: 
 ```
-docker pull xxx 
+docker pull princesig/ada502_group_5:latest 
 ```
-image 
+![Cmd Docker Pull](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/c8caa6fd-327b-49c7-97a1-670f8b05c548)
 
 #### <span style="color:tomato">Step 3.1 (optional): Check Docker images on your local machine</span>
 The project's Docker image should now be on your computer. 
