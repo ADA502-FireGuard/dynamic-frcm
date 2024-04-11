@@ -48,7 +48,7 @@ docker images
 ```
 You should see something like this: 
 
-![Cmd Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/17d6a082-31cb-43e8-91dd-940c71ddd789)
+<img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/17d6a082-31cb-43e8-91dd-940c71ddd789" width="620">
 
 #### <span style="color:tomato">Step 3.2 (optional): Check the Docker Desktop Application</span>
 In the Docker Desktop application, you should now be able see the project image in the "Images" tab: 
