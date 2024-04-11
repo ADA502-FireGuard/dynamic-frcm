@@ -135,7 +135,7 @@ class LogicHandler():
         #
         #TODO TEMPORARY SLEEP TIMER FOR DEBUGGING, TESTING AND SHOWCASING. REMOVE LATER!
         #
-        time.sleep(5)
+        #time.sleep(5)
 
         print(f"--> {threading.current_thread().name} Finished handling request with key {randomized_key}")
 
