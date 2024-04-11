@@ -168,3 +168,4 @@ days:      float - The number of days to be calculated for.
 
 #### <span style="color:tomato">Following Versions</span>
 The next versions is also expected to accept multiple datapoints for any options, as well as feature more options such as postal area, authentication and subscription to data for a certain area.
+
