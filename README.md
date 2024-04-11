@@ -62,7 +62,7 @@ Press the run button for the project:
 
 Enter "8000" as the host port, and then press run:
 
-![Host 8000](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/6ebceb70-95f3-476a-a43c-e7931ae2dfef)
+![Host 8000](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/6ebceb70-95f3-476a-a43c-e7931ae2dfef | width=100)
 
 ### <span style="color:tomato">Step 7: Profit!!! 🎉🥳🎂</span>
 Congratulations, you are now running the application!
