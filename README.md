@@ -74,4 +74,8 @@ Continue to the "User guide" below for pointers on how to use the program.
 
 ## <span style="color:tomato"> User guide </span>
 
+<<<<<<< Updated upstream
 text
+=======
+text
+>>>>>>> Stashed changes
