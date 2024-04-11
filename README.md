@@ -37,7 +37,7 @@ In your terminal window of choice, write the following command:
 ```
 docker pull xxx
 ```
-Image
+image
 
 ### <span style="color:tomato">Step 4: Check Docker images on your local machine</span>
 The project's Docker image should now be on your computer. 
@@ -47,35 +47,29 @@ To confirm this, run the following command in your terminal window:
 ```
 docker images
 ```
-Image
+image
 
 ### <span style="color:tomato">Step 5: Check the Docker Desktop Application</span>
 In the Docker application, we should now be able see the project image in the image folder:
 
-Image
+![Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/897ebfea-888d-4238-a190-e602489a4a5d)
 
 ### <span style="color:tomato">Step 6: Run the project image</span>
 Press the run button for the project:
 
-Image
+![Run Image](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/abfccc0b-bae0-412c-bee2-4490fb967a9e)
 
-Choose "Host port" 8000:
+Enter "8000" as the host port, and then press run:
 
-Image
-
-Then press "Run":
-
-Image
+![Host 8000](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/39a14d88-4934-42f7-b2f1-1df45ffeb24f)
 
 ### <span style="color:tomato">Step 7: Profit!!! 🎉🥳🎂</span>
 Congratulations, you are now running the application!
 
+You should see the following in your Docker application:
+
+![Docker Logs](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/3bbf8181-2994-4a92-83dd-f8163d7f72eb)
+
 Continue to the "User guide" below for pointers on how to use the program.
 
-## <span style="color:tomato"> User guide </span>
-
-<<<<<<< Updated upstream
-text
-=======
-text
->>>>>>> Stashed changes
+## <span style="color:tomato"> User guide </span> 
