@@ -24,7 +24,8 @@ First, open [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
 (Docker needs to be running in the background.)
 
-### <span style="color:tomato">Step 2: Open Powershell or CMD</span>
+### <span style="color:tomato">Step 2: Open a terminal window</span>
+
 Launch your terminal of choice.
 
 You can type "cmd" in a Windows search bar to find the embedded command-line interface on Windows devices (alternatively press Windows key + R, type "cmd", and hit enter.)
