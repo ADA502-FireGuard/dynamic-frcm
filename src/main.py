@@ -30,12 +30,14 @@ async def root():
 # Authenticates user. Unnessecary?
 @app.get("/fireguard/authenticate")
 async def authenticate ():
+    #TODO 
     pass
 
 
 # Default for services selection. Returns JSON containing info on available services, input variables required and return values.
 @app.get("/fireguard/services")
 async def services ():
+    #TODO UPDATE THESE PATHS AND RETURN TYPES TO THE UPDATED ONES.
     return {
         "message": "FireGuard services",
         "rawdata": {
@@ -109,6 +111,7 @@ async def raw_data(temp: float, temp_forecast: float, humidity: float, humidity_
 # Default for area selection. Returns expected input variables for the area service functions.
 @app.get("/fireguard/services/area")
 async def area():
+    #TODO UPDATE THESE PATHS TO THE CORRECT VERSIONS
     return {
         "message": "Område tjeneste frå FireGuard, brannrisiko basert på værdata frå lokasjonar.",
         "area": {
@@ -187,7 +190,6 @@ async def multiple_gps(lon: list[float], lat: list[float], days: list[float]):
         print("Sent request for multiple GPS")
 
     # Have the thread continuously check if the temporary storage has updated to contain a list of FireRiskPredictions. Once this is the case, return the results stored.
-    #TODO: Change the result type to be a JSON formatted result for the end user.
     while True:
         time.sleep(1)
         with threading.Lock():
