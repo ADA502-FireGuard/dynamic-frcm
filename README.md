@@ -47,28 +47,29 @@ To confirm this, run the following command in your terminal window:
 ```
 docker images
 ```
-image
+![Cmd Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/7430e928-4024-417b-b194-6f329d7a57c5)
 
 ### <span style="color:tomato">Step 5: Check the Docker Desktop Application</span>
 In the Docker application, we should now be able see the project image in the image folder:
 
-![Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/897ebfea-888d-4238-a190-e602489a4a5d)
+![Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/e2077c31-f916-4ba5-beea-d662d7caffb5)
 
 ### <span style="color:tomato">Step 6: Run the project image</span>
 Press the run button for the project:
 
-![Run Image](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/abfccc0b-bae0-412c-bee2-4490fb967a9e)
+![Run Image](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/42ac821c-58ea-4963-83cc-65df7e537a2c)
+
 
 Enter "8000" as the host port, and then press run:
 
-![Host 8000](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/39a14d88-4934-42f7-b2f1-1df45ffeb24f)
+![Host 8000](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/6ebceb70-95f3-476a-a43c-e7931ae2dfef)
 
 ### <span style="color:tomato">Step 7: Profit!!! 🎉🥳🎂</span>
 Congratulations, you are now running the application!
 
 You should see the following in your Docker application:
 
-![Docker Logs](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/3bbf8181-2994-4a92-83dd-f8163d7f72eb)
+![Docker Logs](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/0b4b1d72-09c7-4ce4-b5f5-bfe0677a09e3)
 
 Continue to the "User guide" below for pointers on how to use the program.
 
