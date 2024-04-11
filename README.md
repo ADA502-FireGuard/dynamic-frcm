@@ -47,7 +47,7 @@ To confirm this, run the following command in your terminal window:
 ```
 docker images
 ```
-![Cmd Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/7430e928-4024-417b-b194-6f329d7a57c5)
+![Cmd Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/17d6a082-31cb-43e8-91dd-940c71ddd789)
 
 ### <span style="color:tomato">Step 5: Check the Docker Desktop Application</span>
 In the Docker application, we should now be able see the project image in the image folder:
