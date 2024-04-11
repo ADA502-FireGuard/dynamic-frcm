@@ -37,7 +37,7 @@ Write the following command in your terminal window:
 ```
 docker pull princesig/ada502_group_5:latest 
 ```
-![Cmd Docker Pull](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/c8caa6fd-327b-49c7-97a1-670f8b05c548)
+<img src=https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/c8caa6fd-327b-49c7-97a1-670f8b05c548 width="570">
 
 #### <span style="color:tomato">Step 3.1 (optional): Check Docker images on your local machine</span>
 The project's Docker image should now be on your computer. 
