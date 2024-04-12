@@ -22,8 +22,8 @@ class GeoCodingClient(LocationDataClient):
         self.geocoding_endpoint = 'https://ws.geonorge.no/adresser/v1/sok'
 
         # Unused. Remains empty till Kartverket requires Auth.
-        self.GEOCODING_CLIENT_ID = config('GEOCODING_CLIENT_ID')
-        self.GEOCODING_CLIENT_SECRET = config('GEOCODING_CLIENT_SECRET')
+        #self.GEOCODING_CLIENT_ID = config('GEOCODING_CLIENT_ID')
+        #self.GEOCODING_CLIENT_SECRET = config('GEOCODING_CLIENT_SECRET')
 
         self.extractor = GeoCodingExtractor()
 
