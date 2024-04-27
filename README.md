@@ -1,111 +1,111 @@
 # FireGuard - Group 5
 
-The FireGuard Ckoud Service v.0.1.0 for the ADA502 course. 
+The FireGuard Cloud Service v.0.1.0 for the ADA502 course.
 
-The project repository is publically available on [Github](https://github.com/ADA502-FireGuard/dynamic-frcm). 
+The project git repository is publicly available on [Github](https://github.com/ADA502-FireGuard/dynamic-frcm). The Docker repository can be found at [DockerHub](https://hub.docker.com/r/alexbringh/fireguard-v-0-1-0/).
 
-## <span style="color:tomato"> Prerequisites </span> 
+## Getting started
 
-* [Python 3.11](https://www.python.org/downloads/)
-* [Poetry](https://python-poetry.org/docs/#installation)
-* [Docker](https://docs.docker.com/get-docker/)
-* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+There are mainly two recommended ways of getting the service running on your machine. You can either clone the Git repository or grab the Docker image. We describe the required steps to both approaches below.
 
-Recommended: 
-* [Powershell](https://github.com/PowerShell/PowerShell/releases/tag/v7.4.1)
-* [Postman](https://www.postman.com/downloads/postman-agent/)
+For interacting with the API in Windows, we recommend these applications:
 
-## <span style="color:tomato"> Installation </span>
+* [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701) - Modern terminal application
+* [Bruno](https://www.usebruno.com/) - Web API client
 
-To install the program for this project, you need to download/pull the docker image from DockerHub.
+> **Tip:** Windows comes with two terminals pre-installed, `Command Prompt` and `PowerShell`. You can access either from the Windows search bar.
 
-After downloading the Docker image, the program can be set up and run. 
+### Running locally with Python and Poetry
 
-### <span style="color:tomato">Step 1: Launch Docker Desktop</span>
+To run the project locally, you will need to have [Git](https://gitforwindows.org/), [Python 3.11](https://www.python.org/downloads/) and [Poetry](https://python-poetry.org/docs/#installation) installed on your machine for this.
 
-First, open [Docker Desktop](https://www.docker.com/products/docker-desktop/). 
+Clone the repository to your machine
 
-(Docker simply needs to be running in the background for now.) 
-
-### <span style="color:tomato">Step 2: Open a terminal window</span>
-
-Launch your terminal of choice. 
-
-Tip: You can type "cmd" in a Windows search bar to find the embedded command-line interface on Windows devices, or alternatively press Windows key + R, type "cmd", and hit enter. 
-
-### <span style="color:tomato">Step 3: Pull the project from Docker</span>
-Next, you need to download the project from Docker. 
-
-Write the following command in your terminal window: 
+```bash
+git clone https://github.com/ADA502-FireGuard/dynamic-frcm.git
 ```
+
+Navigate to the project directory you cloned
+
+```bash
+cd dynamic-frcm
+```
+
+Install the packages required by the project
+
+```bash
+poetry install
+```
+
+Now, start the application
+
+```bash
+poetry run uvicorn main:app
+```
+
+You can exit by pressing `CTRL+C`
+
+### Running with Docker
+
+> **Note:** Assuming you are using Windows, you will need to have [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) installed to run the Docker image.
+
+Open a terminal and pull the Docker image
+
+```bash
 docker pull alexbringh/fireguard-v-0-1-0
 ```
-<img src=https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/803fe1d5-4505-4512-8ac9-d22b152ecf21 width="620">
 
-#### <span style="color:tomato">Step 3.1 (optional): Check Docker images on your local machine</span>
-The project's Docker image should now be on your computer. 
+> **Tip:** You can confirm that the Docker image has been downloaded to your computer by entering, `docker images`. You should see a line detailing the image `alexbringh/fireguard-v-0-1-0`.
 
+At this point, the docker image should also be viewable in `Docker Desktop for Windows`.
 
-To confirm this, you can write the following command in your terminal window: 
+You can now run the image
+
+```bash
+docker run -p 8000:8000 --name fireguard alexbringh/fireguard-v-0-1-0:latest
 ```
-docker images 
-```
-You should now see something like this: 
 
-<img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/abbbcbad-84b8-4afd-99da-2489315678f7" width="620">
+Where `-p 8000:8000` defines the port we want to reach the service on and `--name fireguard` gives the resulting container a easy-to-remember name. You can now access the service at `http://127.0.0.1:8000`.
 
-#### <span style="color:tomato">Step 3.2 (optional): Check the Docker Desktop application</span>
-In the Docker Desktop application, you should now be able see the project image in the "Images" tab: 
+#### Docker Desktop
 
-![Docker Images](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/6ede8f86-bcd4-4e2b-a7be-44b818c0e9fd)
+If you would rather run the image from `Docker Desktop`, find the image under the `Images` tab. Select the play button and enter 8000 as the host port under `Optional settings`. Now press `Run`.
 
-### <span style="color:tomato">Step 4: Run a Docker container using the project image</span>
-In your Docker Desktop application, under the "Images" tab, select your new image and press run: 
+![rundockerdesktop](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/70963408-f437-44ec-bed0-5cd2c8aeb915)
 
-![Run Image](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/42ac821c-58ea-4963-83cc-65df7e537a2c)
+## User guide
 
-**Important step:** Enter "8000" as the host port, before you proceed to run the container: 
+Once running, the FireGuard Cloud Service will accept inputs. Assuming the Docker container is running locally you can reach the API at `http://127.0.0.1:8000`.
 
-<img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/6ebceb70-95f3-476a-a43c-e7931ae2dfef" width="325">
+The service accepts inputs in the form of standard HTTP requests through a `RESTful API`. You may use any framework or program that sends HTTP requests such as `get` and `post` to interact with the service. The `API endpoints` with the valid `query parameters` are described below.
 
-### <span style="color:tomato">Step 5: Profit!!! 🎉🥳🎂</span>
-Congratulations, you are now running the application! 
+For simple testing of functionality, we recommend using `Bruno`, as it gives a simple GUI for setting up these requests. We have prepared a pre-configured Postman collection which can be imported into `Bruno`. You can find the tests [here](https://github.com/ADA502-FireGuard/dynamic-frcm/tree/main/tests).
 
-You should now be able to see the following in your Docker Desktop application, in the "Containers" tab: 
+ For stress-testing or multi-user simulation of the system, it would be more appropriate to create a custom multithreading script. By default, `Bruno` only sends one request at a time.
 
-<img src="https://github.com/ADA502-FireGuard/dynamic-frcm/assets/94006886/0b4b1d72-09c7-4ce4-b5f5-bfe0677a09e3" width="650">
+### Setting up requests to the FireGuard Cloud Service
 
-Proceed to the "User guide" below for pointers on how you can use the program to perform fire risk calculations. 
+The following examples assume that you have set up the Docker container as detailed above.
 
-## <span style="color:tomato"> User guide </span> 
+The most simple HTTP request that can be made of FireGuard is `GET http://localhost:8000/fireguard`, which will simply return a welcoming message, letting you know the service is available. 
 
-Once the image is running within a container, the FireGuard Cloud Service will accept inputs. If the image is running locally and the tests are being ran locally, you may communicate with the container locally on localhost:8000 (alternatively 127.0.0.1:8000). 
+The next endpoint is `/fireguard/services", which lists available API endpoints and query parameters.
 
-#### <span style="color:tomato">Options for communicating with the cloud service.</span>
-The Cloud Service accepts inputs in the form of standard http requests through a RestAPI. To communicate with the cloud service you may use any framework or program that sends get, post, etc. requests with the proper parameters as described further below. 
-For simple testing of functionality, we recommend using Postman as it gives a simple GUI for setting up these requests, however be aware that postman by default only sends one request at a time, even if you try to run an entire collection of postman requests, it will simply send them one-by-one. For simple functionality this is no issue, however if you wish to simulate multiple users at a time, a sort of "stress-test", you will need a different approach. A good alternative for setting up tests for multiple users is to make a small python-script using the threading and requests modules to make a certain amount of threads that send their own request simultaneously.
-If Postman will be satisfactory, a pre-configured Postman collection exists under the [tests](https://github.com/ADA502-FireGuard/dynamic-frcm/tree/main/tests) folder of the [repository](https://github.com/ADA502-FireGuard/dynamic-frcm).
-
-#### <span style="color:tomato">Setting up requests to the FireGuard Cloud Service</span>
-Assuming that the request is sent locally to the Docker container, the IP address of the container is given here as localhost:8000. However, if this is not the case (i.e. the container is running on a server or such), find and use the correct IP for your usecase.
-
-The most simple request that can be made to FireGuard is
-```
-GET http://localhost:8000/fireguard
-```
-This request does not require any tags. FireGuard will simply return a welcoming message.
-
-The next request is called "services" and it returns what kind of services are available. NB: As of v.1.0 the services list is not updated to include all services, and you should instead follow this guide for now.
-```
+```bash
 GET http://localhost:8000/fireguard/services
 ```
 
-At this point you are presented with a couple of choices. FireGuard offers a couple of different methods of calculating fire risk. You may insert weather data, location and timestamp yourself, and have the model simply calculate and return the results using the following request. 
+> **Note:** As of v0.1.0 the services list is not updated to include all services, and you should instead follow this guide for now.
+
+FireGuard offers five different methods of calculating fire risk. You may manually insert weather data, location and timestamp yourself, and have the model simply calculate and return the results using the following request.
+
+```bash
+POST http://localhost:8000/fireguard/rawdata?temp=...
 ```
-POST http://localhost:8000/fireguard/rawdata? tags...
-```
-The request requires the following tags to be included.
-```
+
+The endpoint requires the following query parameters to be included
+
+```bash
 temp:                float - The termperature in degrees celsius
 temp_forecast:       float - The forecast temperature in degrees celsius
 humidity:            float - The humidity
@@ -118,57 +118,68 @@ lon:                 float - The longitude coordinate where the data was measure
 lat:                 float - The latitude coordinate where the data was measured
 ```
 
-If you do not have all necessary data to use the "rawdata" option, but is instead interested in the firerisk at a certain location, FireGuard offers a variety of requests that only requires you to specify a location. FireGuard will from there convert the location to coordinates through a GeoCoding service, and then retrieve weather data for the respective location through a Meteorological service. 
+Usually, users will not have all necessary data to use the `rawdata` option directly. Rather, a more common use-case is someone interested in discovering the fire risk at a certain location, such as an address, postal code or even longitude and latitude. Based on the given location data point, FireGuard offers to retrieve the remaining required parameters for the user. FireGuard accomplishes this by seamlessly converting that location to coordinates through a GeoCoding service. We then retrieve weather data for those coordinates through a Meteorological service, before finally doing the fire risk calculations.
 
 The available options for the area service are as follows.
 
-##### <span style="color:tomato">GPS</span>
-```
+### GPS
+
+```bash
 GET http://localhost:8000/fireguard/services/area/gps
 ```
+
 This option takes coordinates as inputs along with a timedelta for which the service is to calculate for.
 The required tags.
-```
+
+```bash
 lon:  float - The longitude coordinate
 lat:  float - The latitude coordinate
 days: float - Number of days to be calculated for
 ```
 
-##### <span style="color:tomato">Multiple GPS'</span>
-```
+### Multiple GPS parameters
+
+```bash
 GET http://localhost:8000/fireguard/services/area/multiple_gps
 ```
+
 This option takes multiple coordinates as inputs along with a timedelta for which the service is to calculate for.
 The required tags.
-```
+
+```bash
 lon:  list[float] - The longitude coordinate
 lat:  list[float] - The latitude coordinate
 days: float - Number of days to be calculated for
 ```
 
-##### <span style="color:tomato">Address</span>
-```
+### Address
+
+```bash
 GET http://localhost:8000/fireguard/services/area/address
 ```
-This option takes a address string and uses a Geocoding API to try and turn the address into coordinates automatically.
+
+This option takes a  Norwegian address string and uses a Geocoding API to try and turn the address into coordinates automatically.
 The required tags.
-```
+
+```bash
 adr:  str - The address string. Make sure it is a valied address, for example "Inndalsveigen 28"
 days: float - The number of days to be calculated for.
 ```
 
-##### <span style="color:tomato">Postcode</span>
-```
+### Postcode
+
+```bash
 GET http://localhost:8000/fireguard/services/area/postcode
 ```
-This option takes a four-digit postcode and uses a Geocoding API to try and turn the address into coordinates automatically. Normally the Geocoding API will give a whole lot of coordinates for the postcode in question, the code requests that only the one best representing the postcode area be sent. This is a hard-coded option into FireGuard, however it is possible to change this option of course, but the user does not have this option by default.
+
+This option takes a Norwegian four-digit postcode and uses a Geocoding API to try and turn the address into coordinates automatically. Normally the Geocoding API will give a whole lot of coordinates for the postcode in question, the code requests that only the one best representing the postcode area be sent. This is a hard-coded option into FireGuard, however it is possible to change this option of course, but the user does not have this option by default.
 The required tags.
-```
+
+```bash
 postcode:  int - The four-digit postcode for the area. Make sure that the postcode is valid. For example "5063" (Bergen)
 days:      float - The number of days to be calculated for.
 ```
 
+## Following Versions
 
-#### <span style="color:tomato">Following Versions</span>
-The next versions are expected to also accept multiple datapoints for any options, as well as feature more options such as postal area, authentication and subscription to data for a certain area.
-
+The next versions are expected to also accept multiple data points for any options, as well as feature more options such as postal area, authentication and subscription to data for a certain area.
