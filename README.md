@@ -125,7 +125,7 @@ The available options for the area service are as follows.
 ### GPS
 
 ```bash
-GET http://localhost:8000/fireguard/services/area/gps
+POST http://localhost:8000/fireguard/services/area/gps?lon=...+lat=...+day=...
 ```
 
 This option takes coordinates as inputs along with a timedelta for which the service is to calculate for.
@@ -140,7 +140,7 @@ days: float - Number of days to be calculated for
 ### Multiple GPS parameters
 
 ```bash
-GET http://localhost:8000/fireguard/services/area/multiple_gps
+POST http://localhost:8000/fireguard/services/area/multiple_gps
 ```
 
 This option takes multiple coordinates as inputs along with a timedelta for which the service is to calculate for.
@@ -155,7 +155,7 @@ days: float - Number of days to be calculated for
 ### Address
 
 ```bash
-GET http://localhost:8000/fireguard/services/area/address
+POST http://localhost:8000/fireguard/services/area/address?adr=...+days=...
 ```
 
 This option takes a  Norwegian address string and uses a Geocoding API to try and turn the address into coordinates automatically.
@@ -169,7 +169,7 @@ days: float - The number of days to be calculated for.
 ### Postcode
 
 ```bash
-GET http://localhost:8000/fireguard/services/area/postcode
+POST http://localhost:8000/fireguard/services/area/postcode?postcode=...+days=...
 ```
 
 This option takes a Norwegian four-digit postcode and uses a Geocoding API to try and turn the address into coordinates automatically. Normally the Geocoding API will give a whole lot of coordinates for the postcode in question, the code requests that only the one best representing the postcode area be sent. This is a hard-coded option into FireGuard, however it is possible to change this option of course, but the user does not have this option by default.
