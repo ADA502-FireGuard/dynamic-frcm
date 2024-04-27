@@ -3,6 +3,7 @@ from fastapi import FastAPI, Response, status
 from frcm.logic.logic_handler import LogicHandler
 import time
 import threading
+import inspect
 
 # sample code illustrating how to use the Fire Risk Computation API (FRCAPI)
 logic_handler: LogicHandler = LogicHandler()
@@ -36,39 +37,16 @@ async def authenticate ():
 
 # Default for services selection. Returns JSON containing info on available services, input variables required and return values.
 @app.get("/fireguard/services")
-async def services ():
-    #TODO UPDATE THESE PATHS AND RETURN TYPES TO THE UPDATED ONES.
+async def services():
     return {
         "message": "FireGuard services",
-        "rawdata": {
-            "temp": "float", 
-            "temp_forecast": "float",
-            "humidity": "float",
-            "humidity_forecast": "float",
-            "wind_speed": "float",
-            "wind_speed_forecast": "float",
-            "timestamp": "str",
-            "timestamp_forecast": "str",
-            "return": ""
-        },
+        "rawdata": get_function_query_parm(raw_data),
         "area": {
-            "gps": {
-                "lon": "float", 
-                "lat": "float",
-                "days (optional, default = 1, minimum = 1)": "int",
-                "return": ""
-            },
-            "postcode": {
-                "postal_code": "int",
-                "return": ""
-            },
-            "address": {
-                "adr": "str",
-                "return": ""
+            "gps": get_function_query_parm(gps),
+            "postcode": get_function_query_parm(postcode),
+            "address": get_function_query_parm(address)
             }
         }
-    }
-
 
 # Calculates fire risk based on raw data supplied by the user.
 @app.post("/fireguard/services/rawdata")
@@ -260,3 +238,7 @@ async def address (adr: str, days: float):
                 break
 
     return result
+
+def get_function_query_parm(func):
+    signature = inspect.signature(func)
+    return {param_name: str(param.annotation).split("'")[1] for param_name, param in signature.parameters.items()}
