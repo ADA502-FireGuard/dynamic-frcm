@@ -21,6 +21,8 @@ Note that FireGuard encrypts traffic with `Secure Sockets Layer`. For purposes o
 
 To run the project locally, you will need to have [Git](https://gitforwindows.org/), [Python 3.11](https://www.python.org/downloads/) and [Poetry](https://python-poetry.org/docs/#installation) installed on your machine for this.
 
+Also, FireGuard employs [Met.no's API](https://api.met.no), which requires authentication to use. You need to register for credentials [here](https://frost.met.no/auth/requestCredentials.html) before beginning.
+
 Clone the repository to your machine
 
 ```bash
@@ -37,6 +39,13 @@ Install the packages required by the project
 
 ```bash
 poetry install
+```
+
+Add the MET API ID and secret to your environment variables
+
+```bash
+export MET_CLIENT_ID="<INSERT ID>"
+export MET_CLIENT_SECRET="<INSERT SECRET>"
 ```
 
 Now, start the application
@@ -64,7 +73,7 @@ At this point, the docker image should also be viewable in `Docker Desktop for W
 You can now run the image
 
 ```bash
-docker run -p 8000:8000 --name fireguard alexbringh/fireguard-v-0-1-0:latest
+docker run -p 8000:8000 -e MET_CLIENT_ID='<INSERT ID>' -e MET_CLIENT_SECRET='<INSERT SECRET>' --name fireguard alexbringh/fireguard-v-0-1-0:latest
 ```
 
 Where `-p 8000:8000` defines the port we want to reach the service on and `--name fireguard` gives the resulting container a easy-to-remember name. You can now access the service at `https://127.0.0.1:8000`.
