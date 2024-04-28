@@ -15,7 +15,7 @@ numpy = "^1.26.3"
 requests = "^2.31.0"
 python-decouple = "^3.8"
 fastapi = {extras = ["all"], version = "^0.109.2"}
-
+pyopenssl = "^24.0.0"
 
 [build-system]
 requires = ["poetry-core"]
