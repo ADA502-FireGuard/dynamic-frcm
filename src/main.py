@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, status
+from fastapi import FastAPI
 from frcm.routes import router
 
 app = FastAPI()
