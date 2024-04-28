@@ -15,6 +15,8 @@ For interacting with the API in Windows, we recommend these applications:
 
 > **Tip:** Windows comes with two terminals pre-installed, `Command Prompt` and `PowerShell`. You can access either from the Windows search bar.
 
+Note that FireGuard encrypts traffic with `Secure Sockets Layer`. For purposes of testing and demoing, we provide keys with the project. As they are publicly available, they should not be trusted in production settings. Generate your own `SSL` keys and add them before deploying.
+
 ### Running locally with Python and Poetry
 
 To run the project locally, you will need to have [Git](https://gitforwindows.org/), [Python 3.11](https://www.python.org/downloads/) and [Poetry](https://python-poetry.org/docs/#installation) installed on your machine for this.
@@ -40,7 +42,7 @@ poetry install
 Now, start the application
 
 ```bash
-poetry run uvicorn main:app
+poetry run uvicorn main:app --ssl-keyfile key.pem --ssl-certfile cert.pem
 ```
 
 You can exit by pressing `CTRL+C`
@@ -65,7 +67,7 @@ You can now run the image
 docker run -p 8000:8000 --name fireguard alexbringh/fireguard-v-0-1-0:latest
 ```
 
-Where `-p 8000:8000` defines the port we want to reach the service on and `--name fireguard` gives the resulting container a easy-to-remember name. You can now access the service at `http://127.0.0.1:8000`.
+Where `-p 8000:8000` defines the port we want to reach the service on and `--name fireguard` gives the resulting container a easy-to-remember name. You can now access the service at `https://127.0.0.1:8000`.
 
 #### Docker Desktop
 
@@ -75,7 +77,7 @@ If you would rather run the image from `Docker Desktop`, find the image under th
 
 ## User guide
 
-Once running, the FireGuard Cloud Service will accept inputs. Assuming the Docker container is running locally you can reach the API at `http://127.0.0.1:8000`.
+Once running, the FireGuard Cloud Service will accept inputs. Assuming the Docker container is running locally you can reach the API at `https://127.0.0.1:8000`.
 
 The service accepts inputs in the form of standard HTTP requests through a `RESTful API`. You may use any framework or program that sends HTTP requests such as `get` and `post` to interact with the service. The `API endpoints` with the valid `query parameters` are described below.
 
@@ -87,12 +89,12 @@ For simple testing of functionality, we recommend using `Bruno`, as it gives a s
 
 The following examples assume that you have set up the Docker container as detailed above.
 
-The most simple HTTP request that can be made of FireGuard is `GET http://localhost:8000/fireguard`, which will simply return a welcoming message, letting you know the service is available. 
+The most simple HTTP request that can be made of FireGuard is `GET https://127.0.0.1:8000/`, which will simply return a welcoming message, letting you know the service is available.
 
-The next endpoint is `/fireguard/services", which lists available API endpoints and query parameters.
+The next endpoint is `/services", which lists available API endpoints and query parameters.
 
 ```bash
-GET http://localhost:8000/fireguard/services
+GET https://localhost:8000/services
 ```
 
 > **Note:** As of v0.1.0 the services list is not updated to include all services, and you should instead follow this guide for now.
@@ -100,7 +102,7 @@ GET http://localhost:8000/fireguard/services
 FireGuard offers five different methods of calculating fire risk. You may manually insert weather data, location and timestamp yourself, and have the model simply calculate and return the results using the following request.
 
 ```bash
-POST http://localhost:8000/fireguard/rawdata?temp=...
+POST https://localhost:8000/rawdata?temp=...
 ```
 
 The endpoint requires the following query parameters to be included
@@ -125,7 +127,7 @@ The available options for the area service are as follows.
 ### GPS
 
 ```bash
-POST http://localhost:8000/fireguard/services/area/gps?lon=...+lat=...+day=...
+POST https://localhost:8000/area/gps?lon=...+lat=...+day=...
 ```
 
 This option takes coordinates as inputs along with a timedelta for which the service is to calculate for.
@@ -140,7 +142,7 @@ days: float - Number of days to be calculated for
 ### Multiple GPS parameters
 
 ```bash
-POST http://localhost:8000/fireguard/services/area/multiple_gps
+POST https://localhost:8000/area/multiple_gps
 ```
 
 This option takes multiple coordinates as inputs along with a timedelta for which the service is to calculate for.
@@ -155,7 +157,7 @@ days: float - Number of days to be calculated for
 ### Address
 
 ```bash
-POST http://localhost:8000/fireguard/services/area/address?adr=...+days=...
+POST https://localhost:8000/area/address?adr=...+days=...
 ```
 
 This option takes a  Norwegian address string and uses a Geocoding API to try and turn the address into coordinates automatically.
@@ -169,7 +171,7 @@ days: float - The number of days to be calculated for.
 ### Postcode
 
 ```bash
-POST http://localhost:8000/fireguard/services/area/postcode?postcode=...+days=...
+POST https://localhost:8000/area/postcode?postcode=...+days=...
 ```
 
 This option takes a Norwegian four-digit postcode and uses a Geocoding API to try and turn the address into coordinates automatically. Normally the Geocoding API will give a whole lot of coordinates for the postcode in question, the code requests that only the one best representing the postcode area be sent. This is a hard-coded option into FireGuard, however it is possible to change this option of course, but the user does not have this option by default.
