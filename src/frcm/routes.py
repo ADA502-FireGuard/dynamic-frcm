@@ -12,7 +12,8 @@ logic_handler: LogicHandler = LogicHandler()# Init LogicHandler object.
 # Authenticates user.
 @router.get("/authenticate")
 async def authenticate(user: bool = Depends(verify_user_role)):
-    return { "message": "User authenticated." }
+    message = "User authenticated." if user else "User not authenticated."
+    return {"message": message}
 
 # Default for services selection. Returns JSON containing info on available services, input variables required and return values.
 @router.get("/services")
