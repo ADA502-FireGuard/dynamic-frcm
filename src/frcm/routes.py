@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from frcm.kc.auth import verify_user_role
 from frcm.logic.logic_handler import LogicHandler
 import time
 import threading
@@ -8,11 +9,10 @@ import inspect
 router = APIRouter()
 logic_handler: LogicHandler = LogicHandler()# Init LogicHandler object.
 
-# Authenticates user. Unnessecary?
+# Authenticates user.
 @router.get("/authenticate")
-async def authenticate ():
-    #TODO
-    pass
+async def authenticate(user: bool = Depends(verify_user_role)):
+    return { "message": "User authenticated." }
 
 # Default for services selection. Returns JSON containing info on available services, input variables required and return values.
 @router.get("/services")
