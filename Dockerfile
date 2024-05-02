@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /frcmapp
 
-COPY ./pyproject.toml ./poetry.lock /frcmapp/
+COPY ./pyproject.toml ./poetry.lock ./cert.pem ./key.pem /frcmapp/
 
 RUN pip install poetry
 RUN poetry config virtualenvs.create true
@@ -15,4 +15,4 @@ COPY ./src /frcmapp/
 
 EXPOSE 8000
 
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--ssl-keyfile", "key.pem", "--ssl-certfile", "cert.pem"]

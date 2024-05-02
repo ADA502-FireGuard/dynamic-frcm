@@ -29,7 +29,7 @@ class LogicHandler():
         self.active_threads = 0
 
         # Database handler object
-        self.db_handler = DatabaseHandler()
+        self.db_handler = DatabaseHandler("dbname='fireriskdb' user='admin' host='postgres' password='password' port='5432'")
 
         # Start looping through the waiting list and check every second if there is an open slot for a request to be handled.
         self.queue_manager = threading.Thread(target=self.queue_handler, name="Queue-Manager-Thread", daemon=True) #TODO: Should this be marked as a background thread or should it keep the program running? For now it is set as background thread.
@@ -131,6 +131,10 @@ class LogicHandler():
         # Test case
         elif req_type == "test":
             result = ["test else"] 
+        print(result[0].firerisks[0].ttf)
+        print(result[0].location.longitude)
+        print(result[0].location.latitude)
+        self.db_handler.append_database_item(firerisk=str(result[0].firerisks[0].ttf), lon=str(result[0].location.longitude), lat=str(result[0].location.latitude), source=req_type)
 
         #
         #TODO TEMPORARY SLEEP TIMER FOR DEBUGGING, TESTING AND SHOWCASING. REMOVE LATER!
@@ -213,7 +217,7 @@ class LogicHandler():
         while True:
             time.sleep(1)
             with self.lock:
-                print(f"--> Thread Queue Handler ... Active Threads: {self.active_threads} ... Queued Threads: {len(self.waiting_list)}")
+                #print(f"--> Thread Queue Handler ... Active Threads: {self.active_threads} ... Queued Threads: {len(self.waiting_list)}")
                 if self.waiting_list and self.active_threads < (self.max_threads + 1):
                     request = self.waiting_list.pop(0)
                     self.active_threads += 1
