@@ -68,13 +68,19 @@ docker pull alexbringh/fireguard-v-0-1-0
 
 At this point, the docker image should also be viewable in `Docker Desktop for Windows`.
 
+Add the MET API ID and secret to your environment variables
+
+```bash
+export MET_CLIENT_ID="<INSERT ID>"
+export MET_CLIENT_SECRET="<INSERT SECRET>"
+```
+
 You can now run the image
 
 ```bash
-docker run -p 8000:8000 -e MET_CLIENT_ID='<INSERT ID>' -e MET_CLIENT_SECRET='<INSERT SECRET>' --name fireguard alexbringh/fireguard-v-0-1-0:latest
+docker-compose up -d
 ```
-
-Where `-p 8000:8000` defines the port we want to reach the service on and `--name fireguard` gives the resulting container a easy-to-remember name. You can now access the service at `https://127.0.0.1:8000`.
+You can now access the service at `https://127.0.0.1:8000`. 
 
 #### Docker Desktop
 
