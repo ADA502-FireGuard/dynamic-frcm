@@ -14,13 +14,16 @@ There are mainly two recommended ways of getting the service running on your mac
 
 For interacting with the API in Windows, we recommend these applications:
 
+* [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701) - Modern terminal application
+* [Bruno](https://www.usebruno.com/) - Web API client
+
+> **Tip:** Windows comes with two terminals pre-installed, `Command Prompt` and `PowerShell`. You can access either from the Windows search bar.
 
 Note that FireGuard encrypts traffic with `Secure Sockets Layer`. For purposes of testing and demoing, we provide keys with the project. As they are publicly available, they should not be trusted in production settings. Generate your own `SSL` keys and add them before deploying.
 
+### Cloning the repository
 
-To run the project locally, you will need to have [Git](https://gitforwindows.org/), [Python 3.11](https://www.python.org/downloads/) and [Poetry](https://python-poetry.org/docs/#installation) installed on your machine for this.
-
-Also, FireGuard employs [Met.no's API](https://api.met.no), which requires authentication to use. You need to register for credentials [here](https://frost.met.no/auth/requestCredentials.html) before beginning.
+FireGuard employs [Met.no's API](https://api.met.no), which requires authentication to use. You need to register for credentials [here](https://frost.met.no/auth/requestCredentials.html) before beginning.
 
 Clone the repository to your machine
 
@@ -34,12 +37,6 @@ Navigate to the project directory you cloned
 cd dynamic-frcm
 ```
 
-Install the packages required by the project
-
-```bash
-poetry install
-```
-
 Add the MET API ID and secret to your environment variables
 
 ```bash
@@ -47,10 +44,10 @@ export MET_CLIENT_ID="<INSERT ID>"
 export MET_CLIENT_SECRET="<INSERT SECRET>"
 ```
 
-Now, start the application
+Now, start the docker containers
 
 ```bash
-poetry run uvicorn main:app --ssl-keyfile key.pem --ssl-certfile cert.pem
+docker-compose up 
 ```
 
 You can exit by pressing `CTRL+C`
