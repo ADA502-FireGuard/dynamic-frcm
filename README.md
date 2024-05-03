@@ -1,5 +1,15 @@
 # FireGuard - Group 5
 
+The FireGuard Cloud Service v.0.1.0 for the ADA502 course.
+
+**Collaborators:** Alexander Ringheim, Daniel Vikøyr, Sigve Bjørhovde, Thomas Mavropoulos
+
+![firerisk drawio](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/55bc8db2-eecd-4cf1-8f12-f2505d1a3d48)
+
+The project git repository is publicly available on [Github](https://github.com/ADA502-FireGuard/dynamic-frcm). The Docker repository can be found at [DockerHub](https://hub.docker.com/r/alexbringh/fireguard-v-0-1-0/).
+
+## Getting started
+
 There are mainly two recommended ways of getting the service running on your machine. You can either clone the Git repository or grab the Docker image. We describe the required steps to both approaches below.
 
 For interacting with the API in Windows, we recommend these applications:
@@ -44,6 +54,8 @@ poetry run uvicorn main:app --ssl-keyfile key.pem --ssl-certfile cert.pem
 ```
 
 You can exit by pressing `CTRL+C`
+
+You will need to do the equivalent for `postgres-frcm` to get database functionality. 
 
 ### Running with Docker
 
