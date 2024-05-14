@@ -8,6 +8,12 @@ The FireGuard Cloud Service v.0.1.0 for the ADA502 course.
 
 The project git repository is publicly available on [Github](https://github.com/ADA502-FireGuard/dynamic-frcm). The Docker repository can be found at [DockerHub](https://hub.docker.com/r/alexbringh/fireguard-v-0-1-0/).
 
+This FireGuard project .... database .... testing .... docker/containerization/orchestration/deployment ... CI/CD ... middleware?... RESTful degree (level)... Architecture?
+
+FireGuard is a a type of software referred to as middleware.... It connects several APIs together with ... does calculations...
+
+We currently provide these security measures (HTTPS) and have begun implementing authentication through keycloak....
+
 ## Getting started
 
 There are mainly two recommended ways of getting the service running on your machine. You can either clone the Git repository or grab the Docker image. We describe the required steps to both approaches below.
@@ -54,9 +60,12 @@ You can exit by pressing `CTRL+C`
 
 You will need to do the equivalent for `postgres-frcm` to get database functionality.
 
-### Running with Docker
+### Running with Docker-compose
 
 > **Note:** Assuming you are using Windows, you will need to have [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) installed to run the Docker image.
+
+#TODO Fix text underneath
+With container orchestration through docker-compose, we're able to easily run several docker containers in conjunction, all communicating with each other through a bridged network.
 
 Open a terminal and pull the Docker image
 
@@ -88,6 +97,16 @@ You can now access the service at `https://127.0.0.1:8000`.
 If you would rather run the image from `Docker Desktop`, find the image under the `Images` tab. Select the play button and enter 8000 as the host port under `Optional settings`. Now press `Run`.
 
 ![rundockerdesktop](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/70963408-f437-44ec-bed0-5cd2c8aeb915)
+
+#### Running tests
+
+```bash
+#Command to tests in container
+```
+
+#TODO
+
+Beskrivelse av tester her?
 
 ## User guide
 
@@ -164,3 +183,6 @@ days:      float - The number of days to be calculated for.
 ## Following Versions
 
 The next versions are expected to also accept multiple data points for any options, as well as feature more options such as postal area, authentication and subscription to data for a certain area.
+
+#TODO fix text below
+Input validering, mer automatisk testing,  
