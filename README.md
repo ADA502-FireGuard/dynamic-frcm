@@ -52,7 +52,7 @@ docker-compose up
 
 You can exit by pressing `CTRL+C`
 
-You will need to do the equivalent for `postgres-frcm` to get database functionality. 
+You will need to do the equivalent for `postgres-frcm` to get database functionality.
 
 ### Running with Docker
 
@@ -80,7 +80,8 @@ You can now run the image
 ```bash
 docker-compose up -d
 ```
-You can now access the service at `https://127.0.0.1:8000`. 
+
+You can now access the service at `https://127.0.0.1:8000`.
 
 #### Docker Desktop
 
@@ -141,7 +142,6 @@ days: float - Number of days to be calculated for
 POST https://localhost:8000/area/address?adr=...+days=...
 ```
 
-
 ```bash
 adr:  str - The address string. Make sure it is a valied address, for example "Inndalsveigen 28"
 days: float - The number of days to be calculated for.
@@ -149,8 +149,18 @@ days: float - The number of days to be calculated for.
 
 ### Postcode
 
+```bash
+GET http://localhost:8000/area/postcode
+```
 
 This option takes a Norwegian four-digit postcode and uses a Geocoding API to try and turn the address into coordinates automatically. Normally the Geocoding API will give a whole lot of coordinates for the postcode in question, the code requests that only the one best representing the postcode area be sent. This is a hard-coded option into FireGuard, however it is possible to change this option of course, but the user does not have this option by default.
 The required tags.
 
+```bash
+postcode:  int - The four-digit postcode for the area. Make sure that the postcode is valid. For example "5063" (Bergen)
+days:      float - The number of days to be calculated for.
+```
 
+## Following Versions
+
+The next versions are expected to also accept multiple data points for any options, as well as feature more options such as postal area, authentication and subscription to data for a certain area.
