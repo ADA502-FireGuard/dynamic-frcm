@@ -8,11 +8,14 @@ The FireGuard Cloud Service v.0.1.0 for the ADA502 course.
 
 The project git repository is publicly available on [Github](https://github.com/ADA502-FireGuard/dynamic-frcm). The Docker repository can be found at [DockerHub](https://hub.docker.com/r/alexbringh/fireguard-v-0-1-0/).
 
-This FireGuard project .... database .... testing .... docker/containerization/orchestration/deployment ... CI/CD ... middleware?... RESTful degree (level)... Architecture?
-
-FireGuard is a a type of software referred to as middleware.... It connects several APIs together with ... does calculations...
+This FireGuard project .... database .... testing .... docker/containerization/orchestration/deployment ... CI/CD ... RESTful degree (level) ... Architecture?
 
 We currently provide these security measures (HTTPS) and have begun implementing authentication through keycloak....
+
+#TODO: her begynner alex å skriva om architecture
+
+#TODO: her begynner alex å skrive om REST api. Par setningar.
+
 
 ## Getting started
 
@@ -59,6 +62,8 @@ docker-compose up
 You can exit by pressing `CTRL+C`
 
 You will need to do the equivalent for `postgres-frcm` to get database functionality.
+
+#TODO nevn noko om Postgres og Database, 
 
 ### Running with Docker-compose
 
@@ -169,7 +174,7 @@ days: float - The number of days to be calculated for.
 ### Postcode
 
 ```bash
-GET http://localhost:8000/area/postcode
+GET http://localhost:8000/area/postcode?postcode=...+days=...
 ```
 
 This option takes a Norwegian four-digit postcode and uses a Geocoding API to try and turn the address into coordinates automatically. Normally the Geocoding API will give a whole lot of coordinates for the postcode in question, the code requests that only the one best representing the postcode area be sent. This is a hard-coded option into FireGuard, however it is possible to change this option of course, but the user does not have this option by default.
