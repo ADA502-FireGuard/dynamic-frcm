@@ -9,10 +9,6 @@ COPY ./pyproject.toml ./cert.pem ./key.pem /frcmapp/
 
 RUN pip install poetry
 RUN poetry config virtualenvs.create true
-RUN poetry install --no-dev
+RUN poetry install --only main
 
-COPY ./src /frcmapp/
-
-EXPOSE 8000
-
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--ssl-keyfile", "key.pem", "--ssl-certfile", "cert.pem"]
+COPY ./src ./tests /frcmapp/
