@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /frcmapp
 
-COPY ./pyproject.toml ./poetry.lock ./cert.pem ./key.pem /frcmapp/
+COPY ./pyproject.toml ./cert.pem ./key.pem /frcmapp/
 
 RUN pip install poetry
 RUN poetry config virtualenvs.create true
