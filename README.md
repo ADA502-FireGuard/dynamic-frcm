@@ -105,13 +105,11 @@ If you would rather run the image from `Docker Desktop`, find the image under th
 
 #### Running tests
 
+Our repository includes a comprehensive suite of tests covering client interactions with geocoding and meteorological data, core computations, data models, fire risk calculations, data extraction modules, API integrations, logical processing, and weather data handling. These tests ensure the robustness and reliability of our software. You can run all tests using the provided Docker command.
+
 ```bash
 #Command to tests in container
 ```
-
-#TODO
-
-Beskrivelse av tester her?
 
 ## User guide
 
