@@ -187,7 +187,8 @@ days:      float - The number of days to be calculated for.
 
 ## Following Versions
 
-The next versions are expected to also accept multiple data points for any options, as well as feature more options such as postal area, authentication and subscription to data for a certain area.
+In the upcoming releases, our emphasis will shift towards a robust continuous integration process. Our new objectives for the product include accommodating multiple data points for any given feature and expanding our offerings to encompass additional functionalities like postal area specification, enhanced authentication, and data subscriptions for specific regions.
 
-#TODO fix text below
-Input validering, mer automatisk testing,  
+To safeguard against errors and potential security vulnerabilities due to user input, we will be enhancing our input validation measures. Furthermore, there's a planned incorporation of consistently timed automated test routines, such as combined smoke and security testing, to ensure the software's integrity.
+
+We will be integrating a suite of comprehensive tests -- including integration, functional, performance, load, stress, security, and usability assessments. These tests will support our regression strategy and acceptance criteria to drive quality assurance. Moreover, as the project evolves, the role of continuous deployment is becoming increasingly vital. Consequently, we are placing greater emphasis on code reliability and efficient testing protocols, as the complexity and resource demands for manual testing grow, underscoring the need for exceptionally thorough testing practices. 
