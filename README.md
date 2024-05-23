@@ -2,7 +2,7 @@
 
 The FireGuard Cloud Service v.0.1.0 for the ADA502 course.
 
-**Collaborators:** Alexander Ringheim, Daniel Vikøyr, Sigve Bjørhovde, Thomas Mavropoulos
+**Collaborators:** Alexander Ringheim, Daniel Vikøyr, Sigve Heggedal, Thomas Mavropoulos
 
 ![firerisk drawio](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/55bc8db2-eecd-4cf1-8f12-f2505d1a3d48)
 
