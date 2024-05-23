@@ -12,9 +12,9 @@ This FireGuard project .... database .... testing .... docker/containerization/o
 
 We currently provide these security measures (HTTPS) and have begun implementing authentication through keycloak....
 
-#TODO: her begynner alex å skriva om architecture
+The Fireguard service is implemented as multiple micro services, offloading tasks such as encryption to the keyclock service, the retrieval of coordinates to Kartverket, the retrieval of weather data to Frost, the storage of results to a separate database service and the actual calculation to the Fireguard API service. Whilst the service strives to offload each task as a microservice, it has become necessary to break with the ideal idea of a microservice architecture by having the Fireguard API service perform most of the coordination of tasks as well, not just limiting it to the calculation alone.
 
-#TODO: her begynner alex å skrive om REST api. Par setningar.
+The service offers interfacing with clients as a RestAPI, primarily offering GET requests and some PUT requests that can be easily used by a client directly or a middleware service. 
 
 
 ## Getting started
