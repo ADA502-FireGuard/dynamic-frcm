@@ -2,13 +2,14 @@
 
 The FireGuard Cloud Service v.0.1.0 for the ADA502 course.
 
-**Collaborators:** Alexander Ringheim, Daniel Vikøyr, Sigve Heggedal, Thomas Mavropoulos
+**Collaborators:** Alexander Ringheim, Daniel Vikøyr, Sigve Bjørhovde, Thomas Mavropoulos
 
 ![firerisk drawio](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/55bc8db2-eecd-4cf1-8f12-f2505d1a3d48)
 
-The project git repository is publicly available on [Github](https://github.com/ADA502-FireGuard/dynamic-frcm). The Docker repository can be found at [DockerHub](https://hub.docker.com/r/alexbringh/fireguard-v-0-1-0/).
+The project git repository is publicly available on [Github](https://github.com/ADA502-FireGuard/frcm-monolith). 
+The project consists of two separately developed microservices. These services can be found in their separate git reposiories, the main FireRisk API service [dynamic-frcm](https://github.com/ADA502-FireGuard/dynamic-frcm) and the database service [postgres-frcm](https://github.com/ADA502-FireGuard/postgres-frcm).
 
-This FireGuard project .... database .... testing .... docker/containerization/orchestration/deployment ... CI/CD ... RESTful degree (level) ... Architecture?
+The Docker repository for dynamic-frcm can be found at [DockerHub](https://hub.docker.com/r/alexbringh/fireguard-v-0-1-0/).
 
 We currently provide these security measures (HTTPS) and have begun implementing authentication through keycloak....
 
@@ -30,57 +31,23 @@ For interacting with the API in Windows, we recommend these applications:
 
 Note that FireGuard encrypts traffic with `Secure Sockets Layer`. For purposes of testing and demoing, we provide keys with the project. As they are publicly available, they should not be trusted in production settings. Generate your own `SSL` keys and add them before deploying.
 
-### Cloning the repository
+### Running with container orchestration
 
-FireGuard employs [Met.no's API](https://api.met.no), which requires authentication to use. You need to register for credentials [here](https://frost.met.no/auth/requestCredentials.html) before beginning.
+This is the most convenient way to quickly get all the services running.
 
-Clone the repository to your machine
+With container orchestration through docker-compose, we're able to provide an easy way to run our two microservices `dynamic-frcm` and `postgres-frcm` in conjunction. To this end, we have prepared a monorepo.
 
-```bash
-git clone https://github.com/ADA502-FireGuard/dynamic-frcm.git
-```
-
-Navigate to the project directory you cloned
+Clone the `frcm-monolith` repository to your machine
 
 ```bash
-cd dynamic-frcm
+git clone https://github.com/ADA502-FireGuard/frcm-monolith.git
 ```
 
-Add the MET API ID and secret to your environment variables
+Navigate to the cloned directory
 
 ```bash
-export MET_CLIENT_ID="<INSERT ID>"
-export MET_CLIENT_SECRET="<INSERT SECRET>"
+cd frcm-monolith
 ```
-
-Now, start the docker containers
-
-```bash
-docker-compose up 
-```
-
-You can exit by pressing `CTRL+C`
-
-You will need to do the equivalent for `postgres-frcm` to get database functionality.
-
-#TODO nevn noko om Postgres og Database, 
-
-### Running with Docker-compose
-
-> **Note:** Assuming you are using Windows, you will need to have [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) installed to run the Docker image.
-
-#TODO Fix text underneath
-With container orchestration through docker-compose, we're able to easily run several docker containers in conjunction, all communicating with each other through a bridged network.
-
-Open a terminal and pull the Docker image
-
-```bash
-docker pull alexbringh/fireguard-v-0-1-0
-```
-
-> **Tip:** You can confirm that the Docker image has been downloaded to your computer by entering, `docker images`. You should see a line detailing the image `alexbringh/fireguard-v-0-1-0`.
-
-At this point, the docker image should also be viewable in `Docker Desktop for Windows`.
 
 Add the MET API ID and secret to your environment variables
 
@@ -95,21 +62,68 @@ You can now run the image
 docker-compose up -d
 ```
 
-You can now access the service at `https://127.0.0.1:8000`.
-
-#### Docker Desktop
-
-If you would rather run the image from `Docker Desktop`, find the image under the `Images` tab. Select the play button and enter 8000 as the host port under `Optional settings`. Now press `Run`.
-
-![rundockerdesktop](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/70963408-f437-44ec-bed0-5cd2c8aeb915)
+You can now access the Fireguard API service at `https://127.0.0.1:8000`. The database is accessible locally on port `5432`. The database can be accessed via `Adminer` at `http://127.0.0.1:8888`, or through whichever PostgreSQL compatible database management tool you prefer.
 
 #### Running tests
 
 Our repository includes a comprehensive suite of tests covering client interactions with geocoding and meteorological data, core computations, data models, fire risk calculations, data extraction modules, API integrations, logical processing, and weather data handling. These tests ensure the robustness and reliability of our software. You can run all tests using the provided Docker command.
 
 ```bash
-#Command to tests in container
+docker-compose run firerisk poetry run pytest
 ```
+
+### Running as microservices
+
+FireGuard employs [Met.no's API](https://api.met.no), which requires authentication to use. You need to register for credentials [here](https://frost.met.no/auth/requestCredentials.html) before beginning.
+
+> **Note:** Assuming you are using Windows, you will probably want to have [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) installed to run the Docker image. In tha case, start `Docker Desktop` before continuing.
+
+Clone the `dynamic-frcm` repository to your machine
+
+```bash
+git clone https://github.com/ADA502-FireGuard/dynamic-frcm.git
+```
+
+Navigate to the cloned directory
+
+```bash
+cd dynamic-frcm
+```
+
+Add the MET API ID and secret to your environment variables
+
+```bash
+export MET_CLIENT_ID="<INSERT ID>"
+export MET_CLIENT_SECRET="<INSERT SECRET>"
+```
+
+Build a docker image
+
+```bash
+docker build -t firerisk .
+```
+
+Now, run the docker container
+
+```bash
+docker run firerisk
+```
+
+You can exit anytime by pressing `CTRL+C`
+
+You will need to do the equivalent for `postgres-frcm` repository and set up a bridged network to get database functionality.
+
+# nevn noko om Postgres og Database, 
+
+#### Via DockerHub
+
+If you would rather run the microservice directly from `DockerHub` through `Docker Desktop`. Simply enter `alexbringh/fireguard-v-0-1-0:latest` into the top search bar and pull the latest image.
+
+> **Tip:** You can also achieve the same result through the command-line with the command, `docker pull alexbringh/fireguard-v-0-1-0:latest`!
+
+Before attempting to run a container, find the image under the `Images` tab. Select the play button and enter 8000 as the host port under `Optional settings`. Now press `Run`.
+
+![rundockerdesktop](https://github.com/ADA502-FireGuard/dynamic-frcm/assets/4137667/70963408-f437-44ec-bed0-5cd2c8aeb915)
 
 ## User guide
 
@@ -145,7 +159,7 @@ Usually, users will not have all necessary data to use the `rawdata` option dire
 
 The available options for the area service are as follows.
 
-### GPS
+#### GPS
 
 ```bash
 POST https://localhost:8000/area/gps?lon=...+lat=...+day=...
@@ -169,7 +183,7 @@ adr:  str - The address string. Make sure it is a valied address, for example "I
 days: float - The number of days to be calculated for.
 ```
 
-### Postcode
+#### Postcode
 
 ```bash
 GET http://localhost:8000/area/postcode?postcode=...+days=...
