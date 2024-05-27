@@ -10,12 +10,12 @@
 			"name": "fireguard/services/rawdata",
 			"item": [
 				{
-					"name": "fireguard/services/rawdata - 1",
+					"name": "fireguard/rawdata - 1",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/fireguard/services/rawdata?temp=15&temp_forecast=11&humidity=80&humidity_forecast=58&wind_speed=2.1&wind_speed_forecast=3.5&timestamp=2022-04-01T00:00:00Z&timestamp_forecast=2022-04-02T01:00:01Z&lon=5.3&lat=60.0",
+							"raw": "http://127.0.0.1:8000/rawdata?temp=15&temp_forecast=11&humidity=80&humidity_forecast=58&wind_speed=2.1&wind_speed_forecast=3.5&timestamp=2022-04-01T00:00:00Z&timestamp_forecast=2022-04-02T01:00:01Z&lon=5.3&lat=60.0",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -25,8 +25,6 @@
 							],
 							"port": "8000",
 							"path": [
-								"fireguard",
-								"services",
 								"rawdata"
 							],
 							"query": [
@@ -81,12 +79,12 @@
 			"name": "fireguard/services/area/gps",
 			"item": [
 				{
-					"name": "fireguard/services/area/gps - Bergen",
+					"name": "fireguard/area/gps - Bergen",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/fireguard/services/area/gps?lon=5.3327&lat=60.383&days=2",
+							"raw": "http://127.0.0.1:8000/area/gps?lon=5.3327&lat=60.383&days=2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -96,8 +94,6 @@
 							],
 							"port": "8000",
 							"path": [
-								"fireguard",
-								"services",
 								"area",
 								"gps"
 							],
@@ -120,12 +116,12 @@
 					"response": []
 				},
 				{
-					"name": "fireguard/services/area/gps - Bergen - 1 day",
+					"name": "fireguard/area/gps - Bergen - 1 day",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/fireguard/services/area/gps?lon=5.3327&lat=60.383&days=1",
+							"raw": "http://127.0.0.1:8000/area/gps?lon=5.3327&lat=60.383&days=1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -135,8 +131,6 @@
 							],
 							"port": "8000",
 							"path": [
-								"fireguard",
-								"services",
 								"area",
 								"gps"
 							],
@@ -159,12 +153,12 @@
 					"response": []
 				},
 				{
-					"name": "fireguard/services/area/gps - Haugesund",
+					"name": "fireguard/area/gps - Haugesund",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/fireguard/services/area/gps?lon=5.3327&lat=60.383&days=2",
+							"raw": "http://127.0.0.1:8000/area/gps?lon=5.3327&lat=60.383&days=2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -174,8 +168,6 @@
 							],
 							"port": "8000",
 							"path": [
-								"fireguard",
-								"services",
 								"area",
 								"gps"
 							],
@@ -203,12 +195,12 @@
 			"name": "fireguard/services/area/postcode",
 			"item": [
 				{
-					"name": "fireguard/services/area/postcode/5700",
+					"name": "fireguard/area/postcode/5063",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/fireguard/services/area/postcode?postal_code=5700&days=2",
+							"raw": "http://127.0.0.1:8000/area/postcode?postal_code=5063&days=2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -218,15 +210,13 @@
 							],
 							"port": "8000",
 							"path": [
-								"fireguard",
-								"services",
 								"area",
 								"postcode"
 							],
 							"query": [
 								{
 									"key": "postal_code",
-									"value": "5700"
+									"value": "5063"
 								},
 								{
 									"key": "days",
@@ -285,7 +275,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/fireguard",
+					"raw": "http://127.0.0.1:8000/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -295,7 +285,7 @@
 					],
 					"port": "8000",
 					"path": [
-						"fireguard"
+						""
 					]
 				}
 			},
@@ -307,7 +297,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/fireguard/services",
+					"raw": "http://127.0.0.1:8000/services",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -317,7 +307,6 @@
 					],
 					"port": "8000",
 					"path": [
-						"fireguard",
 						"services"
 					]
 				}
